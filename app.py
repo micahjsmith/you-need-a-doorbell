@@ -42,7 +42,7 @@ def validate_config(c):
         raise EnvironmentError("unable to verify that tts command {} is callable".format(c["tts_command"]))
 
     # Ensure log file directory exists
-    if c["log_file"] == "_":
+    if c["log_file"] == "":
         d = tempfile.mkdtemp()
         f = os.path.join(d, "party_arrivals.log")
         c["log_file"] = f
