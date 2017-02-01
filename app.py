@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 sms_path = "/party_arrival"
 DEFAULT_CONFIG_FILE_LOCATION = os.path.join(
-        os.path.expanduser("~"),".partyapp.conf")
+        os.path.expanduser("~"),".ynad.conf")
 
 # Settings
 c = None
