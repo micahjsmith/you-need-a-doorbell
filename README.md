@@ -76,11 +76,11 @@ Connect your speakers and turn the volume up!
 
 By the way, make sure to actually invite people to your party and tell them how to use your
 *you-need-a-doorbell* system. Example text:
-> In [your horrible apartment], its a bit tricky to let people in as there is no doorbell
+> In [your horrible apartment], it is a bit tricky to let people in, as there is no doorbell
 > and someone has to walk to the door. As such, I'm using "you-need-a-doorbell", a
 > sophisticated digital doorbell system. Arrive to [your address]. Then, send a message to
 > [your party's number] and include your name as the only text. An announcement will be made
-> inside the party and someone will come open the door for you. Warning- you can only
+> inside the party and someone will come open the door for you. Warning: you can only
 > announce your arrival once, so don't text until you're actually at the door.
 
 ## Configuration
