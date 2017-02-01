@@ -56,8 +56,8 @@ Determine the URL to be associated with a party arrival and add it to Twilio
     my-ip-1-2-3-4.me.com
     ```
 - get your app port, from your config file
-- get your sms path, from your config file
-- create the URL `http://my-ip-1-2-3-4.me.com:5000/party_arrival`
+- the URL for Twilio to POST to is `/party_arrival`
+- put everything together `http://my-ip-1-2-3-4.me.com:5000/party_arrival`
 - In your Twilio console, click on the number you registered. On the *Configure* tab, scroll
     down to *Messaging*. Fill in the field for "A Message Comes In" with the URL above, and
     select the "Webhook" and "HTTP POST" settings. Save your changes.
@@ -90,8 +90,6 @@ There are a variety of general configuration options under the `app` section.
 - `host`: Flask serves your app at this host; use `0.0.0.0` to expose the app to the
     internet. You can use `localhost` for local debugging, though you will have to
     craft the POST requests corresponding to text messages by hand.
-- `sms_path`: The relative URL that Twilio should POST to when a text arrives. (Start
-    with `/`.)
 - `log_file`: Path for the log file. If left blank, a file will be created in a
     temporary directory.
 - `tts_command`: Text-to-speech executable on your system. `say` is a nice choice on
