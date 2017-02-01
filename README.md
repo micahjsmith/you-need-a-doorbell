@@ -114,6 +114,7 @@ There are a variety of general configuration options under the `app` section.
     assign one guest the responsibility to open the door. Has no effect if
     `random_assignment` is not enabled. (If assignment is not random, then the person who is
     assignment to open the door should know about this before your party starts.)
+- `assign_hosts`: Allow hosts to be assigned to open the door (`yes`/`no`).
 
 You can add to the host list, whitelist, and blacklist. A sensible configuration is to leave
 both the whitelist and the blacklist blank.

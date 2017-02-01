@@ -13,6 +13,7 @@ app = Flask(__name__)
 sms_path = "/party_arrival"
 DEFAULT_CONFIG_FILE_LOCATION = os.path.join(
         os.path.expanduser("~"),".ynad.conf")
+YES_CONFIG = ["y","Y","yes","Yes","1","true","True"]
 
 # Settings
 c     = None
@@ -82,17 +83,32 @@ def announce(person):
 # non-hosts can only announce once anyway. One unaddressed problem is that
 # multiple guests can have the same name.
 def assign():
-    if c["random_assignment"] in ["y","Y","yes","Yes","1","true","True"]:
-        num_arrivals = len(lists["arrivals"])
-        if num_arrivals > 0:
-            r = random.randint(0,num_arrivals-1)
-            a = lists["arrivals"][r]
-            person = a[0]
-            message = c["assignment_message"].format(person)
-            subprocess.call([c["tts_command"], c["tts_command_options"], message])
-            return a
+    if c["random_assignment"] in YES_CONFIG:
+        l = lists["arrivals"]
+        return _assign(l)
     else:
         return None
+
+def _assign(l):
+    num_arrivals = len(l)
+    if num_arrivals > 0:
+        i = random.randint(0,num_arrivals-1)
+        a = lists["arrivals"][i]
+        person = a[0]
+
+        # Test if this is a host phone number
+        if c["assign_hosts"] not in YES_CONFIG:
+            number = a[1]
+            if number in lists["hostlist"].values():
+                # Assign from all arrivals except this random choice, which was
+                # a host
+                return _assign(l[:i] + l[i+1:])
+
+        message = c["assignment_message"].format(person)
+        subprocess.call([c["tts_command"], c["tts_command_options"], message])
+        return a
+
+    return None
 
 def reply(message):
     resp = twilio.twiml.Response()
