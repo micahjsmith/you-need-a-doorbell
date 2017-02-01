@@ -8,6 +8,7 @@ Features
     number to annoying people you didn't invite who might text you after
 - Super loud and annoying announcements so the entire party knows someone has arrived
 - Configure multiple hosts with admin privileges, or whitelists and blacklists of guests
+- Enable random door-opening assignments to guests who have already arrived
 - Avoid spam
 
 For now, this app runs locally on your macOS computer. (It uses the macOS `say` utility by
@@ -107,6 +108,12 @@ There are a variety of general configuration options under the `app` section.
 - `repeat_response`: Your app's response text message to a *repeat* text from the guest.
     That is, their arrival is announced only once to avoid spam. This message is sent to
     them if they try to text more than once.
+- `random_assignment`: Randomly assign responsibility to go open the door to a guest that
+    has already arrived (`yes`/`no`).
+- `assignment_message`: After the arrival message is played, this message is spoken to
+    assign one guest the responsibility to open the door. Has no effect if
+    `random_assignment` is not enabled. (If assignment is not random, then the person who is
+    assignment to open the door should know about this before your party starts.)
 
 You can add to the host list, whitelist, and blacklist. A sensible configuration is to leave
 both the whitelist and the blacklist blank.

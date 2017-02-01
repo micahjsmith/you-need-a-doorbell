@@ -5,6 +5,7 @@ import time
 import configparser
 import tempfile
 import os
+import random
 from shutil import which
 
 app = Flask(__name__)
@@ -14,7 +15,7 @@ DEFAULT_CONFIG_FILE_LOCATION = os.path.join(
         os.path.expanduser("~"),".ynad.conf")
 
 # Settings
-c = None
+c     = None
 lists = {}
 lists["hostlist"]  = {}
 lists["whitelist"] = {}
@@ -60,16 +61,33 @@ def validate_config(c):
 def hello():
     return "Hello World"
 
-def log(sms_number, sms_name, result):
+def log(sms_number, sms_name, result, door_assignment):
     with open(c["log_file"], "a") as f:
         tm = time.strftime("%Y-%m-%d %H:%M")
-        log_message = '[{}] {}: {} => {}\n'.format(
+        log_message = '[{}] {}: {} => {}'.format(
                 tm, sms_number, sms_name, result)
         f.write(log_message)
+        if door_assignment is not None:
+            f.write(" (assigned {})".format(door_assignment))
+        f.write("\n")
 
 def announce(person):
     message = c["doorbell_text"] + " " + c["arrival_message"].format(person)
     subprocess.call([c["tts_command"], c["tts_command_options"], message])
+
+# Randomly assign an arrived guest to open the door. It's okay to not do any
+# validation for duplicate messages as we allow the host to do "testing" and
+# non-hosts can only announce once anyway. One unaddressed problem is that
+# multiple guests can have the same name.
+def assign():
+    if c["random_assignment"] in ["y","Y","yes","Yes","1","true","True"]:
+        if any(lists["arrivals"].keys()):
+            person = random.choice(list(lists["arrivals"].keys()))
+            message = c["assignment_message"].format(person)
+            subprocess.call([c["tts_command"], c["tts_command_options"], message])
+            return person
+    else:
+        return None
 
 def reply(message):
     resp = twilio.twiml.Response()
@@ -89,28 +107,33 @@ def party_arrival():
     if is_host or (is_approved and not has_arrived):
         result = "announced"
 
-        # Add to list of arrivals
-        lists["arrivals"][sms_name] = sms_number
-
         # Announce
         announce(sms_name)
+
+        # Assign - only called if config dictates
+        door_assignment = assign()
+
+        # Add to list of arrivals. Do this *after* door assignment so we don't
+        # assign the person who has arrived!
+        lists["arrivals"][sms_name] = sms_number
 
         # Text back
         ret = reply(c["arrival_response"])
     elif is_approved and has_arrived:
         result = "repeat"
-
-        # Text back
+        door_assignment = None
         ret = reply(c["repeat_response"])
     elif not is_approved:
         result = "rejected"
+        door_assignment = None
         ret = ""
     else:
         result = "other"
+        door_assignment = None
         ret = ""
 
     # Log the result
-    log(sms_number, sms_name, result)
+    log(sms_number, sms_name, result, door_assignment)
 
     return ret
 
