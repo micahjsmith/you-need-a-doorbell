@@ -139,3 +139,4 @@ different country, substitute your own country code.
     window.
 - Check the log for your phone number in the Twilio console to make sure that messages are
     being received and sent correctly.
+- Please let me know if you find any bugs.
