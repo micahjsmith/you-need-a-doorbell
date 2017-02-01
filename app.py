@@ -20,7 +20,7 @@ lists = {}
 lists["hostlist"]  = {}
 lists["whitelist"] = {}
 lists["blacklist"] = {}
-lists["arrivals"]  = {}
+lists["arrivals"]  = []
 
 def load_config():
     config = configparser.ConfigParser()
@@ -68,7 +68,9 @@ def log(sms_number, sms_name, result, door_assignment):
                 tm, sms_number, sms_name, result)
         f.write(log_message)
         if door_assignment is not None:
-            f.write(" (assigned {})".format(door_assignment))
+            person = door_assignment[0]
+            last_four = door_assignment[1][-4:]
+            f.write(" (assigned {} {})".format(person, last_four))
         f.write("\n")
 
 def announce(person):
@@ -81,11 +83,14 @@ def announce(person):
 # multiple guests can have the same name.
 def assign():
     if c["random_assignment"] in ["y","Y","yes","Yes","1","true","True"]:
-        if any(lists["arrivals"].keys()):
-            person = random.choice(list(lists["arrivals"].keys()))
+        num_arrivals = len(lists["arrivals"])
+        if num_arrivals > 0:
+            r = random.randint(0,num_arrivals-1)
+            a = lists["arrivals"][r]
+            person = a[0]
             message = c["assignment_message"].format(person)
             subprocess.call([c["tts_command"], c["tts_command_options"], message])
-            return person
+            return a
     else:
         return None
 
@@ -102,7 +107,7 @@ def party_arrival():
     is_host = sms_number in lists["hostlist"].values()
     is_approved = (sms_number in lists["whitelist"].values() or
         (not any(lists["whitelist"]) and sms_number not in lists["blacklist"].values()))
-    has_arrived = sms_number in lists["arrivals"].values()
+    has_arrived = sms_number in [a[0] for a in lists["arrivals"]]
 
     if is_host or (is_approved and not has_arrived):
         result = "announced"
@@ -115,7 +120,7 @@ def party_arrival():
 
         # Add to list of arrivals. Do this *after* door assignment so we don't
         # assign the person who has arrived!
-        lists["arrivals"][sms_name] = sms_number
+        lists["arrivals"].append((sms_name,sms_number))
 
         # Text back
         ret = reply(c["arrival_response"])
