@@ -16,6 +16,8 @@ default, though you may also be able to use another system that has a text-to-sp
 like `espeak`.) It would be nice to host this in the cloud and allow the party hosts to log
 in via a web interface, which I might get to in the future as my web programming improves.
 
+You can also [read my post](http://www.micahsmith.com/blog/2017/02/you-need-a-doorbell) about this idea.
+
 ## Setup
 
 You should have `python3` and `pip3` installed.
