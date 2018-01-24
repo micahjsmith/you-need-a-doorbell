@@ -56,7 +56,6 @@ def validate_config(c):
     print('Logging to {}'.format(c["log_file"]))
 
     return True
->>>>>>> Move options to a conf file, refactoring
 
 @app.route("/", methods=['GET'])
 def hello():
