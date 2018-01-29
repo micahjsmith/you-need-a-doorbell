@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		205B0AB937360C4C8F2730FE /* Pods_YouNeedADoorbell.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AC6E7DD3FFC656E17726E6 /* Pods_YouNeedADoorbell.framework */; };
+		E11F2835201FCAA800997F2E /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11F2834201FCAA800997F2E /* HomeTableViewCell.swift */; };
+		E11F2837201FCE0C00997F2E /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11F2836201FCE0C00997F2E /* HomeTableViewController.swift */; };
 		E12E5450201FAFB7002BC56F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E544F201FAFB7002BC56F /* AppDelegate.swift */; };
 		E12E5452201FAFB7002BC56F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E5451201FAFB7002BC56F /* HomeViewController.swift */; };
 		E12E5454201FAFB7002BC56F /* DoorbellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E5453201FAFB7002BC56F /* DoorbellViewController.swift */; };
@@ -22,6 +24,8 @@
 /* Begin PBXFileReference section */
 		154B63728CA9EED2A23ED117 /* Pods-YouNeedADoorbell.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouNeedADoorbell.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YouNeedADoorbell/Pods-YouNeedADoorbell.debug.xcconfig"; sourceTree = "<group>"; };
 		81AC6E7DD3FFC656E17726E6 /* Pods_YouNeedADoorbell.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YouNeedADoorbell.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E11F2834201FCAA800997F2E /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
+		E11F2836201FCE0C00997F2E /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		E12E544C201FAFB7002BC56F /* YouNeedADoorbell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YouNeedADoorbell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E12E544F201FAFB7002BC56F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E12E5451201FAFB7002BC56F /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -81,8 +85,10 @@
 				E1FE9B13201FBCEB0034A1C9 /* GoogleService-Info.plist */,
 				E12E544F201FAFB7002BC56F /* AppDelegate.swift */,
 				E12E5451201FAFB7002BC56F /* HomeViewController.swift */,
+				E11F2834201FCAA800997F2E /* HomeTableViewCell.swift */,
 				E12E5453201FAFB7002BC56F /* DoorbellViewController.swift */,
 				E12E5455201FAFB7002BC56F /* Main.storyboard */,
+				E11F2836201FCE0C00997F2E /* HomeTableViewController.swift */,
 				E1FE9B15201FBD2F0034A1C9 /* Model.swift */,
 				E12E5463201FB159002BC56F /* SettingsViewController.swift */,
 				E12E5458201FAFB7002BC56F /* Assets.xcassets */,
@@ -238,9 +244,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E11F2835201FCAA800997F2E /* HomeTableViewCell.swift in Sources */,
 				E1FE9B16201FBD2F0034A1C9 /* Model.swift in Sources */,
 				E12E5454201FAFB7002BC56F /* DoorbellViewController.swift in Sources */,
 				E12E5450201FAFB7002BC56F /* AppDelegate.swift in Sources */,
+				E11F2837201FCE0C00997F2E /* HomeTableViewController.swift in Sources */,
 				E12E5452201FAFB7002BC56F /* HomeViewController.swift in Sources */,
 				E12E5464201FB159002BC56F /* SettingsViewController.swift in Sources */,
 			);

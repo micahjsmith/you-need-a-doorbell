@@ -135,24 +135,24 @@
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Home Table View Controller-->
         <scene sceneID="LXs-ko-eBw">
             <objects>
-                <tableViewController id="oYP-Du-khM" sceneMemberID="viewController">
+                <tableViewController id="oYP-Du-khM" customClass="HomeTableViewController" customModule="YouNeedADoorbell" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="YQ0-5g-bmm">
                         <rect key="frame" x="0.0" y="0.0" width="359" height="544"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="ZuD-q5-X0D" style="IBUITableViewCellStyleDefault" id="FUt-qZ-daP">
-                                <rect key="frame" x="0.0" y="28" width="359" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HomeTableViewCell" textLabel="ZuD-q5-X0D" rowHeight="70" style="IBUITableViewCellStyleDefault" id="FUt-qZ-daP" customClass="HomeTableViewCell" customModule="YouNeedADoorbell" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="359" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FUt-qZ-daP" id="IeU-3C-jJA">
-                                    <rect key="frame" x="0.0" y="0.0" width="359" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="359" height="69.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZuD-q5-X0D">
-                                            <rect key="frame" x="16" y="0.0" width="327" height="43.5"/>
+                                            <rect key="frame" x="16" y="0.0" width="327" height="69.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -160,6 +160,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="titleLabel" destination="ZuD-q5-X0D" id="F3h-ne-Umt"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -170,7 +173,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Afd-Bz-q1c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1524" y="-602"/>
+            <point key="canvasLocation" x="1524" y="-602.69865067466276"/>
         </scene>
     </scenes>
     <resources>
