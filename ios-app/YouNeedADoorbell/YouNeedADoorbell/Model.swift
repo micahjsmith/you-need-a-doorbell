@@ -18,7 +18,7 @@ class Gathering {
     var starts_in: String? {
         get {
             let now = DateInRegion()
-            let (colloquial, _) = try! now.absoluteDate.colloquial(to: start!)
+            let (colloquial, _) = try! start!.colloquial(to: now.absoluteDate)
             return colloquial
         }
     }

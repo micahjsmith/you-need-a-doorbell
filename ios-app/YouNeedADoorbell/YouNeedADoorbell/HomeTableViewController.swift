@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftDate
 
 class HomeTableViewController: UITableViewController {
     private var gatherings = [Gathering]()
@@ -18,8 +19,13 @@ class HomeTableViewController: UITableViewController {
     }
     
     public func loadSampleGatherings() {
-        self.addGathering(withTitle: "Poker Night", andDetail: nil, andStartDate: nil, andEndDate: nil)
-        self.addGathering(withTitle: "Gala Pregame", andDetail: nil, andStartDate: nil, andEndDate: nil)
+        let region = Region(tz: .americaNewYork, cal: .gregorian, loc: .englishUnitedStates)
+        let start1 = DateInRegion(string: "2018-11-19T20:30:00", format: .iso8601Auto, fromRegion: region)
+        let end1 = start1! + 4.hours
+        let start2 = DateInRegion(string: "2018-01-30T19:00:00", format: .iso8601Auto, fromRegion: region)
+        let end2 = start2! + 2.hours
+        self.addGathering(withTitle: "Poker Night", andDetail: "555-555-1234", andStartDate: start1!.absoluteDate, andEndDate: end1.absoluteDate)
+        self.addGathering(withTitle: "Gala Pregame", andDetail: "601-123-4589", andStartDate: start2!.absoluteDate, andEndDate: end2.absoluteDate)
     }
     
     override func viewDidLoad() {
@@ -53,6 +59,8 @@ class HomeTableViewController: UITableViewController {
         
         // Configure the cell
         cell.titleLabel.text = gathering.title
+        cell.contactLabel.text = gathering.detail
+        cell.occursWhenLabel.text = gathering.starts_in
         
         return cell
     }
