@@ -8,12 +8,21 @@
 
 import Foundation
 import SwiftDate
+import AVFoundation
 
 class Gathering {
     var title: String?
     var detail: String?
     var start: Date?
     var end: Date?
+    var hostsCouldOpenDoor: Bool
+    var randomAssignment: Bool
+    var voice: String?
+    
+    // TODO - consider changing to CNContact
+    var hosts: [String?]
+    var approvedGuestList: [String?]
+    var blockedList: [String?]
     
     var starts_in: String? {
         get {
