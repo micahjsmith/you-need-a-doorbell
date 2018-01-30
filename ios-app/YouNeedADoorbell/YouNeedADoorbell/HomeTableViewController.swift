@@ -12,26 +12,25 @@ import SwiftDate
 class HomeTableViewController: UITableViewController {
     private var gatherings = [Gathering]()
     
-    public func addGathering(withTitle title: String?, andDetail detail: String?, andStartDate start: Date?, andEndDate end: Date?) {
-        let item = Gathering(withTitle: title, andDetail: detail, andStartDate: start, andEndDate: end)
+    public func addGathering(title: String?, detail: String?, startDate: Date?, endDate: Date?) {
+        let item = Gathering(title: title, detail: detail, startDate: startDate, endDate: endDate)
         gatherings.append(item)
         tableView.reloadData()
     }
     
-    public func loadSampleGatherings() {
+    public func loadSampleData() {
         let region = Region(tz: .americaNewYork, cal: .gregorian, loc: .englishUnitedStates)
-        let start1 = DateInRegion(string: "2018-11-19T20:30:00", format: .iso8601Auto, fromRegion: region)
-        let end1 = start1! + 4.hours
-        let start2 = DateInRegion(string: "2018-01-30T19:00:00", format: .iso8601Auto, fromRegion: region)
-        let end2 = start2! + 2.hours
-        self.addGathering(withTitle: "Poker Night", andDetail: "555-555-1234", andStartDate: start1!.absoluteDate, andEndDate: end1.absoluteDate)
-        self.addGathering(withTitle: "Gala Pregame", andDetail: "601-123-4589", andStartDate: start2!.absoluteDate, andEndDate: end2.absoluteDate)
+        let start = DateInRegion(absoluteDate: Date(), in: region)
+        let end1 = start + 4.weeks
+        let end2 = start + 39.hours
+        self.addGathering(title: "Poker Night", detail: "555-555-1234", startDate: start.absoluteDate, endDate: end1.absoluteDate)
+        self.addGathering(title: "Gala Pregame", detail: "601-123-4589", startDate: start.absoluteDate, endDate: end2.absoluteDate)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadSampleGatherings()
+        loadSampleData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -109,4 +108,16 @@ class HomeTableViewController: UITableViewController {
      // Pass the selected object to the new view controller.
      }
      */
+    
+    
+    
+    @IBAction func unwindAddNewGatheringAction(unwindSegue: UIStoryboardSegue) {
+        if unwindSegue.source is AddNewGatheringTableViewController {
+            if let senderViewController = unwindSegue.source as? AddNewGatheringTableViewController {
+                let name = senderViewController.nameTextField
+                print("new gathering")
+                print("name: \(name)")
+            }
+        }
+    }
 }

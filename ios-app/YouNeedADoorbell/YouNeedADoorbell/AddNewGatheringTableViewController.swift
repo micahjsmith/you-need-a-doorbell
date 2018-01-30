@@ -11,12 +11,20 @@ import AVFoundation
 
 class AddNewGatheringTableViewController: UITableViewController {
     
+    // MARK: - outlets
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var startDatePicker: UIDatePicker!
+    @IBOutlet weak var endDatePicker: UIDatePicker!
+    @IBOutlet weak var assignHostsSwitch: UISwitch!
+    @IBOutlet weak var assignRandomlySwitch: UISwitch!
     @IBOutlet weak var voicePicker: UIPickerView!
-    let picker = CustomPicker()
+    
+    // MARK: - custom voice picker
+    let pickerDataSourceAndDelegate = VoicePickerDataSourceAndDelegate()
     
     func setupVoicePicker() {
-        voicePicker.delegate = picker
-        voicePicker.dataSource = picker
+        voicePicker.delegate = pickerDataSourceAndDelegate
+        voicePicker.dataSource = pickerDataSourceAndDelegate
     }
 
     override func viewDidLoad() {
@@ -108,7 +116,7 @@ class AddNewGatheringTableViewController: UITableViewController {
 
 }
 
-class CustomPicker: NSObject, UIPickerViewDataSource, UIPickerViewDelegate {
+class VoicePickerDataSourceAndDelegate: NSObject, UIPickerViewDataSource, UIPickerViewDelegate {
     var voicePickerData: [String]  = AVSpeechSynthesisVoice.speechVoices().map { voice in
         return "\(voice.name) (\(voice.language))"
     }
