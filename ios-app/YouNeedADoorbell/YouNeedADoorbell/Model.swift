@@ -70,6 +70,7 @@ class Doorbell {
     static let DEFAULT_DOORBELL_TEXT = "DING DONG!"
     static let DEFAULT_ARRIVAL_MESSAGE = "Guest {} has arrived to the party."
     static let DEFAULT_ASSIGNMENT_MESSAGE = "Please, {}, open the door."
+    static let GUEST_PLACEHOLDER = "{}"
     
     
     var doorbellText: String
@@ -100,7 +101,7 @@ class Doorbell {
     }
     
     func announceArrival(guest: String?) {
-        let string = "hello world"
+        let string = self.doorbellText + " " + self.arrivalMessage.replacingOccurrences(of: Doorbell.GUEST_PLACEHOLDER, with: guest ?? "Someone")
         let synthesizer = AVSpeechSynthesizer()
         let utterance = AVSpeechUtterance(string: string)
         utterance.voice = self.voice
