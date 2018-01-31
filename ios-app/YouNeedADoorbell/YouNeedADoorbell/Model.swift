@@ -11,6 +11,8 @@ import SwiftDate
 import AVFoundation
 
 class Gathering {
+    static let DEFAULT_DETAIL = "555-555-1234"
+    
     var title: String?
     var detail: String?
     var start: Date?
@@ -44,7 +46,7 @@ class Gathering {
                 assignRandomly: Bool = false,
                 doorbell: Doorbell? = nil) {
         self.title = title
-        self.detail = detail
+        self.detail = detail ?? Gathering.DEFAULT_DETAIL
         self.start = startDate
         self.end = endDate
         
@@ -91,5 +93,32 @@ class Doorbell {
     
     func announceArrival(guest: String?) {
         // pass
+    }
+}
+
+extension AVSpeechSynthesisVoice {
+    var colloquialIdentifier: String {
+        get {
+            return "\(self.name) (\(self.language))"
+        }
+    }
+    
+    static func fromColloquialIdentifier(identifier: String) -> AVSpeechSynthesisVoice? {
+        guard let firstLeftParenthesisIndex = identifier.index(of: "(") else {
+            // error
+            return nil
+        }
+        let endOfNameIndex = identifier.index(firstLeftParenthesisIndex, offsetBy: -2)
+        let beginningOfLanguageIndex = identifier.index(firstLeftParenthesisIndex, offsetBy: 1)
+        let endOfLanguageEnd = identifier.index(identifier.endIndex, offsetBy: -1)
+        let name = identifier[...endOfNameIndex]
+        let language = identifier[beginningOfLanguageIndex...endOfLanguageEnd]
+
+        for voice in AVSpeechSynthesisVoice.speechVoices() {
+            if voice.name == name && voice.language == language {
+                return voice
+            }
+        }
+        return nil
     }
 }

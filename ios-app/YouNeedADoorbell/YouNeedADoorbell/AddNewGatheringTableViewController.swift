@@ -117,9 +117,7 @@ class AddNewGatheringTableViewController: UITableViewController {
 }
 
 class VoicePickerDataSourceAndDelegate: NSObject, UIPickerViewDataSource, UIPickerViewDelegate {
-    var voicePickerData: [String]  = AVSpeechSynthesisVoice.speechVoices().map { voice in
-        return "\(voice.name) (\(voice.language))"
-    }
+    var voicePickerData: [String]  = AVSpeechSynthesisVoice.speechVoices().map { $0.colloquialIdentifier }
 
     // MARK: - voicePicker delegates
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {

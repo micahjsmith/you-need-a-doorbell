@@ -8,23 +8,32 @@
 
 import UIKit
 import SwiftDate
+import AVFoundation
 
 class HomeTableViewController: UITableViewController {
     private var gatherings = [Gathering]()
     
     public func addGathering(title: String?, detail: String?, startDate: Date?, endDate: Date?) {
-        let item = Gathering(title: title, detail: detail, startDate: startDate, endDate: endDate)
-        gatherings.append(item)
-        tableView.reloadData()
+        let gathering = Gathering(title: title, detail: detail, startDate: startDate, endDate: endDate)
+        self.addGathering(gathering: gathering)
+    }
+    
+    public func addGathering(gathering: Gathering?) {
+        if let gathering = gathering {
+            gatherings.append(gathering)
+            tableView.reloadData()
+        }
     }
     
     public func loadSampleData() {
         let region = Region(tz: .americaNewYork, cal: .gregorian, loc: .englishUnitedStates)
         let start = DateInRegion(absoluteDate: Date(), in: region)
-        let end1 = start + 4.weeks
-        let end2 = start + 39.hours
-        self.addGathering(title: "Poker Night", detail: "555-555-1234", startDate: start.absoluteDate, endDate: end1.absoluteDate)
-        self.addGathering(title: "Gala Pregame", detail: "601-123-4589", startDate: start.absoluteDate, endDate: end2.absoluteDate)
+        let start1 = start + 4.weeks
+        let end1 = start1 + 5.hours
+        let start2 = start + 39.hours
+        let end2 = start2 + 2.hours
+        self.addGathering(title: "Poker Night", detail: "555-555-1234", startDate: start1.absoluteDate, endDate: end1.absoluteDate)
+        self.addGathering(title: "Gala Pregame", detail: "601-123-4589", startDate: start2.absoluteDate, endDate: end2.absoluteDate)
     }
     
     override func viewDidLoad() {
@@ -114,9 +123,27 @@ class HomeTableViewController: UITableViewController {
     @IBAction func unwindAddNewGatheringAction(unwindSegue: UIStoryboardSegue) {
         if unwindSegue.source is AddNewGatheringTableViewController {
             if let senderViewController = unwindSegue.source as? AddNewGatheringTableViewController {
-                let name = senderViewController.nameTextField
+                let name = senderViewController.nameTextField.text
+                let startDate = senderViewController.startDatePicker.date
+                let endDate = senderViewController.endDatePicker.date
+                let assignHosts = senderViewController.assignHostsSwitch.isOn
+                let assignRandomly = senderViewController.assignRandomlySwitch.isOn
+                
+                // get item from voice picker
+                let voicePicker = senderViewController.voicePicker
+                let component = 0 // implementation detail
+                let delegate = voicePicker!.delegate
+                let row = voicePicker!.selectedRow(inComponent: component)
+                let voice = delegate?.pickerView!(voicePicker!, titleForRow: row, forComponent: component)
+                let voiceIdentifier = AVSpeechSynthesisVoice.fromColloquialIdentifier(identifier: voice!)
                 print("new gathering")
-                print("name: \(name)")
+                
+                // initialize new gathering
+                let doorbell = Doorbell(doorbellText: nil, voiceIdentifier: voiceIdentifier?.identifier, arrivalMessage: nil, assignmentMessage: nil)
+                let gathering = Gathering(title: name, detail: nil, startDate: startDate, endDate: endDate, assignHosts: assignHosts, assignRandomly: assignRandomly, doorbell: doorbell)
+                
+                // add gathering to table
+                self.addGathering(gathering: gathering)
             }
         }
     }
