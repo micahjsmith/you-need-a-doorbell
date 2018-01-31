@@ -11,6 +11,8 @@ import AVFoundation
 
 class AddNewGatheringTableViewController: UITableViewController {
     
+    var gathering: Gathering?
+    
     // MARK: - outlets
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var startDatePicker: UIDatePicker!
@@ -26,11 +28,52 @@ class AddNewGatheringTableViewController: UITableViewController {
         voicePicker.delegate = pickerDataSourceAndDelegate
         voicePicker.dataSource = pickerDataSourceAndDelegate
     }
+    
+    func initGathering() {
+        if gathering == nil {
+            gathering = Gathering()
+        }
+        
+        // set fields
+        nameTextField.text = gathering?.title
+        if let date = gathering?.start {
+            startDatePicker.date = date
+        }
+        if let date = gathering?.end {
+            endDatePicker.date = date
+        }
+        if let isOn = gathering?.assignHosts {
+            assignHostsSwitch.isOn = isOn
+        }
+        if let isOn = gathering?.assignRandomly {
+            assignRandomlySwitch.isOn = isOn
+        }
+        
+        // elaborate way of selecting proper row in picker
+        let voice = gathering?.doorbell.voice.colloquialIdentifier
+        var row = 0
+        var found = false
+        for v in pickerDataSourceAndDelegate.voicePickerData {
+            if v == voice {
+                found = true
+                break
+            }
+            row = row + 1
+        }
+        if found {
+            let component = 0
+            voicePicker.selectRow(row, inComponent: component, animated: false)
+        }
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setupVoicePicker()
+        
+        // setup
+        setupVoicePicker() // must come first
+        initGathering()
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -104,15 +147,33 @@ class AddNewGatheringTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        updateGathering()
+        
     }
-    */
+    
+    func updateGathering() {
+        self.gathering?.title = self.nameTextField.text
+        self.gathering?.start = self.startDatePicker.date
+        self.gathering?.end = self.endDatePicker.date
+        self.gathering?.assignRandomly = self.assignRandomlySwitch.isOn
+        self.gathering?.assignHosts = self.assignHostsSwitch.isOn
+
+        // get item from voice picker
+        let voicePicker = self.voicePicker
+        let component = 0 // implementation detail
+        let delegate = voicePicker!.delegate
+        let row = voicePicker!.selectedRow(inComponent: component)
+        let voiceIdentifier = delegate?.pickerView!(voicePicker!, titleForRow: row, forComponent: component)
+        let voice = AVSpeechSynthesisVoice.fromColloquialIdentifier(identifier: voiceIdentifier!)
+        self.gathering?.doorbell.voice = voice!
+    }
 
 }
 

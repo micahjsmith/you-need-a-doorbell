@@ -38,11 +38,15 @@ class Gathering {
         }
     }
     
+    public convenience init() {
+        self.init(title: nil, detail: nil, startDate: nil, endDate: nil)
+    }
+    
     public init(title: String?,
                 detail: String?,
                 startDate: Date?,
                 endDate: Date?,
-                assignHosts: Bool = true,
+                assignHosts: Bool = false,
                 assignRandomly: Bool = false,
                 doorbell: Doorbell? = nil) {
         self.title = title
@@ -77,6 +81,10 @@ class Doorbell {
         self.init(doorbellText: nil, voiceIdentifier: nil, arrivalMessage: nil, assignmentMessage: nil)
     }
     
+    public convenience init(voiceIdentifier: String) {
+        self.init(doorbellText: nil, voiceIdentifier: voiceIdentifier, arrivalMessage: nil, assignmentMessage: nil)
+    }
+    
     public init(doorbellText: String?, voiceIdentifier: String?, arrivalMessage: String?, assignmentMessage: String?) {
         self.doorbellText = doorbellText ?? Doorbell.DEFAULT_DOORBELL_TEXT
         
@@ -92,7 +100,11 @@ class Doorbell {
     }
     
     func announceArrival(guest: String?) {
-        // pass
+        let string = "hello world"
+        let synthesizer = AVSpeechSynthesizer()
+        let utterance = AVSpeechUtterance(string: string)
+        utterance.voice = self.voice
+        synthesizer.speak(utterance)
     }
 }
 
@@ -106,19 +118,22 @@ extension AVSpeechSynthesisVoice {
     static func fromColloquialIdentifier(identifier: String) -> AVSpeechSynthesisVoice? {
         guard let firstLeftParenthesisIndex = identifier.index(of: "(") else {
             // error
+            print("error: couldn't find left parenthesis in fromColloquialIdentifier")
             return nil
         }
-        let endOfNameIndex = identifier.index(firstLeftParenthesisIndex, offsetBy: -2)
-        let beginningOfLanguageIndex = identifier.index(firstLeftParenthesisIndex, offsetBy: 1)
-        let endOfLanguageEnd = identifier.index(identifier.endIndex, offsetBy: -1)
-        let name = identifier[...endOfNameIndex]
-        let language = identifier[beginningOfLanguageIndex...endOfLanguageEnd]
+        let endOfNameIndex = identifier.index(before: firstLeftParenthesisIndex)
+        let beginningOfLanguageIndex = identifier.index(after: firstLeftParenthesisIndex)
+        let endOfLanguageEnd = identifier.index(before: identifier.endIndex)
+        let name = identifier[..<endOfNameIndex]
+        let language = identifier[beginningOfLanguageIndex..<endOfLanguageEnd]
 
         for voice in AVSpeechSynthesisVoice.speechVoices() {
             if voice.name == name && voice.language == language {
                 return voice
             }
         }
+        // error
+        print("name: \(name), language: \(language)")
         return nil
     }
 }

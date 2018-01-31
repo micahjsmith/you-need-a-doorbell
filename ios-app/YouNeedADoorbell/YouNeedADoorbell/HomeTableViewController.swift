@@ -11,6 +11,9 @@ import SwiftDate
 import AVFoundation
 
 class HomeTableViewController: UITableViewController {
+    // helper
+    private var gatheringCellToEdit: Int? = nil
+    
     private var gatherings = [Gathering]()
     
     public func addGathering(title: String?, detail: String?, startDate: Date?, endDate: Date?) {
@@ -73,6 +76,11 @@ class HomeTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.gatheringCellToEdit = indexPath.row
+        performSegue(withIdentifier: "edit_existing_gathering", sender: self)
+    }
+    
     /*
      // Override to support conditional editing of the table view.
      override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -108,42 +116,33 @@ class HomeTableViewController: UITableViewController {
      }
      */
     
-    /*
      // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "edit_existing_gathering" {
+            let destinationViewController = segue.destination as! AddNewGatheringTableViewController
+            if let row = self.gatheringCellToEdit {
+                destinationViewController.gathering = self.gatherings[row]
+            } else {
+                // error
+                print("error")
+                return
+            }
+        }
+    }
     
     @IBAction func unwindAddNewGatheringAction(unwindSegue: UIStoryboardSegue) {
-        if unwindSegue.source is AddNewGatheringTableViewController {
-            if let senderViewController = unwindSegue.source as? AddNewGatheringTableViewController {
-                let name = senderViewController.nameTextField.text
-                let startDate = senderViewController.startDatePicker.date
-                let endDate = senderViewController.endDatePicker.date
-                let assignHosts = senderViewController.assignHostsSwitch.isOn
-                let assignRandomly = senderViewController.assignRandomlySwitch.isOn
-                
-                // get item from voice picker
-                let voicePicker = senderViewController.voicePicker
-                let component = 0 // implementation detail
-                let delegate = voicePicker!.delegate
-                let row = voicePicker!.selectedRow(inComponent: component)
-                let voice = delegate?.pickerView!(voicePicker!, titleForRow: row, forComponent: component)
-                let voiceIdentifier = AVSpeechSynthesisVoice.fromColloquialIdentifier(identifier: voice!)
-                print("new gathering")
-                
-                // initialize new gathering
-                let doorbell = Doorbell(doorbellText: nil, voiceIdentifier: voiceIdentifier?.identifier, arrivalMessage: nil, assignmentMessage: nil)
-                let gathering = Gathering(title: name, detail: nil, startDate: startDate, endDate: endDate, assignHosts: assignHosts, assignRandomly: assignRandomly, doorbell: doorbell)
-                
-                // add gathering to table
-                self.addGathering(gathering: gathering)
+        if let senderViewController = unwindSegue.source as? AddNewGatheringTableViewController {
+            if unwindSegue.identifier == "save_gathering" {
+                if let gathering = senderViewController.gathering {
+                    if self.gatheringCellToEdit != nil {
+                        let row = self.gatheringCellToEdit!
+                        self.gatherings[row] = gathering
+                        self.gatheringCellToEdit = nil
+                    } else {
+                        self.addGathering(gathering: gathering)
+                    }
+                }
             }
         }
     }
