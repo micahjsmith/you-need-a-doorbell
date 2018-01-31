@@ -50,21 +50,22 @@ class AddNewGatheringTableViewController: UITableViewController {
         }
         
         // elaborate way of selecting proper row in picker
-        let voice = gathering?.doorbell.voice.colloquialIdentifier
-        var row = 0
-        var found = false
-        for v in pickerDataSourceAndDelegate.voicePickerData {
-            if v == voice {
-                found = true
-                break
+        // TODO improve this
+        if let voice = gathering?.doorbell.voice.colloquialIdentifier {
+            var row = 0
+            var found = false
+            for v in pickerDataSourceAndDelegate.voicePickerData {
+                if v == voice {
+                    found = true
+                    break
+                }
+                row = row + 1
             }
-            row = row + 1
+            if found {
+                let component = 0
+                voicePicker.selectRow(row, inComponent: component, animated: false)
+            }
         }
-        if found {
-            let component = 0
-            voicePicker.selectRow(row, inComponent: component, animated: false)
-        }
-        
     }
 
     override func viewDidLoad() {

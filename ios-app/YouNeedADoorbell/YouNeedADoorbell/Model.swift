@@ -92,7 +92,7 @@ class Doorbell {
         if let voiceIdentifier = voiceIdentifier {
             self.voice = AVSpeechSynthesisVoice(identifier: voiceIdentifier)!
         } else {
-            self.voice = AVSpeechSynthesisVoice()
+            self.voice = AVSpeechSynthesisVoice(language: AVSpeechSynthesisVoice.currentLanguageCode())!
         }
         
         self.arrivalMessage = arrivalMessage ?? Doorbell.DEFAULT_ARRIVAL_MESSAGE
