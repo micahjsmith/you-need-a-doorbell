@@ -117,9 +117,10 @@ extension AVSpeechSynthesisVoice {
     }
     
     static func fromColloquialIdentifier(identifier: String) -> AVSpeechSynthesisVoice? {
+        // elaborate way to do string pattern matching :(
         guard let firstLeftParenthesisIndex = identifier.index(of: "(") else {
             // error
-            print("error: couldn't find left parenthesis in fromColloquialIdentifier")
+            print("error: couldn't parse colloquial identifier for '\(identifier)'")
             return nil
         }
         let endOfNameIndex = identifier.index(before: firstLeftParenthesisIndex)
@@ -128,13 +129,15 @@ extension AVSpeechSynthesisVoice {
         let name = identifier[..<endOfNameIndex]
         let language = identifier[beginningOfLanguageIndex..<endOfLanguageEnd]
 
+        // elaborate way to find matches in array :(
         for voice in AVSpeechSynthesisVoice.speechVoices() {
             if voice.name == name && voice.language == language {
                 return voice
             }
         }
+        
         // error
-        print("name: \(name), language: \(language)")
+        print("error: couldn't find voice for name '\(name)' and language '\(language)'")
         return nil
     }
 }
