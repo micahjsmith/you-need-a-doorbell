@@ -11,6 +11,7 @@ import SwiftDate
 import AVFoundation
 import FirebaseAuth
 import FirebaseDatabase
+import FirebaseDatabaseUI
 
 class GatheringsTableViewController: UITableViewController {
     

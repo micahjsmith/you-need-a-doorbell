@@ -6,21 +6,12 @@ target 'YouNeedADoorbell' do
   use_frameworks!
 
   # Pods for YouNeedADoorbell
-  pod 'SwiftyJSON'
-
   pod 'Firebase'
-  pod 'Firebase/Core'
-  pod 'Firebase/AdMob'
-  pod 'Firebase/Analytics'
-  pod 'Firebase/AppIndexing'
   pod 'Firebase/Auth'
-  pod 'Firebase/Crash'
+  pod 'Firebase/Core'
   pod 'Firebase/Database'
-  pod 'Firebase/DynamicLinks'
-  pod 'Firebase/Messaging'
-  pod 'Firebase/RemoteConfig'
-  pod 'Firebase/Storage'
-
+  pod 'FirebaseUI/Database', '~> 4.0'
   pod 'SwiftDate', '~> 4.0'
+  pod 'SwiftyJSON'
 
 end
