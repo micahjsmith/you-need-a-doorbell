@@ -26,6 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "login")
         }
+        
+        // sample data
+        // TODO remove
+        let _ = SampleDataManager().dropDatabase().loadSampleData()
 
         return true
     }

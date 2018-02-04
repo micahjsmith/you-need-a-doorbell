@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeTableViewCell: UITableViewCell {
+class GatheringsTableViewCell: UITableViewCell {
 
     // MARK: -Properties
     

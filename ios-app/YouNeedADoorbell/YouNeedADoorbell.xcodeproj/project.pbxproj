@@ -8,17 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		205B0AB937360C4C8F2730FE /* Pods_YouNeedADoorbell.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AC6E7DD3FFC656E17726E6 /* Pods_YouNeedADoorbell.framework */; };
-		E11F2835201FCAA800997F2E /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11F2834201FCAA800997F2E /* HomeTableViewCell.swift */; };
-		E11F2837201FCE0C00997F2E /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11F2836201FCE0C00997F2E /* HomeTableViewController.swift */; };
+		E11F2835201FCAA800997F2E /* GatheringsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11F2834201FCAA800997F2E /* GatheringsTableViewCell.swift */; };
+		E11F2837201FCE0C00997F2E /* GatheringsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11F2836201FCE0C00997F2E /* GatheringsTableViewController.swift */; };
 		E11F283D202105F900997F2E /* EditGatheringViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11F283C202105F900997F2E /* EditGatheringViewController.swift */; };
 		E12E5450201FAFB7002BC56F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E544F201FAFB7002BC56F /* AppDelegate.swift */; };
-		E12E5452201FAFB7002BC56F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E5451201FAFB7002BC56F /* HomeViewController.swift */; };
 		E12E5454201FAFB7002BC56F /* DoorbellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E5453201FAFB7002BC56F /* DoorbellViewController.swift */; };
 		E12E5457201FAFB7002BC56F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E12E5455201FAFB7002BC56F /* Main.storyboard */; };
 		E12E5459201FAFB7002BC56F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E12E5458201FAFB7002BC56F /* Assets.xcassets */; };
-		E12E545C201FAFB7002BC56F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E12E545A201FAFB7002BC56F /* LaunchScreen.storyboard */; };
 		E12E5464201FB159002BC56F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E5463201FB159002BC56F /* SettingsViewController.swift */; };
 		E1DCD537202673F500D53235 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DCD536202673F500D53235 /* LogInViewController.swift */; };
+		E1DCD53A2026B83700D53235 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1DCD5392026B83700D53235 /* Default-568h@2x.png */; };
+		E1DCD53C2026C1B600D53235 /* DatabaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DCD53B2026C1B600D53235 /* DatabaseUtils.swift */; };
 		E1FE9B14201FBCEB0034A1C9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1FE9B13201FBCEB0034A1C9 /* GoogleService-Info.plist */; };
 		E1FE9B16201FBD2F0034A1C9 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FE9B15201FBD2F0034A1C9 /* Model.swift */; };
 /* End PBXBuildFile section */
@@ -26,20 +26,20 @@
 /* Begin PBXFileReference section */
 		154B63728CA9EED2A23ED117 /* Pods-YouNeedADoorbell.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouNeedADoorbell.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YouNeedADoorbell/Pods-YouNeedADoorbell.debug.xcconfig"; sourceTree = "<group>"; };
 		81AC6E7DD3FFC656E17726E6 /* Pods_YouNeedADoorbell.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YouNeedADoorbell.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E11F2834201FCAA800997F2E /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
-		E11F2836201FCE0C00997F2E /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
+		E11F2834201FCAA800997F2E /* GatheringsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatheringsTableViewCell.swift; sourceTree = "<group>"; };
+		E11F2836201FCE0C00997F2E /* GatheringsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatheringsTableViewController.swift; sourceTree = "<group>"; };
 		E11F283C202105F900997F2E /* EditGatheringViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGatheringViewController.swift; sourceTree = "<group>"; };
 		E12E544C201FAFB7002BC56F /* YouNeedADoorbell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YouNeedADoorbell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E12E544F201FAFB7002BC56F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E12E5451201FAFB7002BC56F /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		E12E5453201FAFB7002BC56F /* DoorbellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoorbellViewController.swift; sourceTree = "<group>"; };
 		E12E5456201FAFB7002BC56F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E12E5458201FAFB7002BC56F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		E12E545B201FAFB7002BC56F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E12E545D201FAFB7002BC56F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E12E5463201FB159002BC56F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E1C5B4943F35D340B248B66F /* Pods-YouNeedADoorbell.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouNeedADoorbell.release.xcconfig"; path = "Pods/Target Support Files/Pods-YouNeedADoorbell/Pods-YouNeedADoorbell.release.xcconfig"; sourceTree = "<group>"; };
 		E1DCD536202673F500D53235 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		E1DCD5392026B83700D53235 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		E1DCD53B2026C1B600D53235 /* DatabaseUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseUtils.swift; sourceTree = "<group>"; };
 		E1FE9B13201FBCEB0034A1C9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E1FE9B15201FBD2F0034A1C9 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -68,10 +68,11 @@
 		E12E5443201FAFB6002BC56F = {
 			isa = PBXGroup;
 			children = (
-				E12E544E201FAFB7002BC56F /* YouNeedADoorbell */,
-				E12E544D201FAFB7002BC56F /* Products */,
-				8F4049E9FEC1836C138DF9B9 /* Pods */,
+				E1DCD5392026B83700D53235 /* Default-568h@2x.png */,
 				FEFAC294553B436A0700EAE7 /* Frameworks */,
+				8F4049E9FEC1836C138DF9B9 /* Pods */,
+				E12E544D201FAFB7002BC56F /* Products */,
+				E12E544E201FAFB7002BC56F /* YouNeedADoorbell */,
 			);
 			sourceTree = "<group>";
 		};
@@ -86,22 +87,29 @@
 		E12E544E201FAFB7002BC56F /* YouNeedADoorbell */ = {
 			isa = PBXGroup;
 			children = (
-				E1FE9B13201FBCEB0034A1C9 /* GoogleService-Info.plist */,
-				E12E544F201FAFB7002BC56F /* AppDelegate.swift */,
-				E12E5451201FAFB7002BC56F /* HomeViewController.swift */,
-				E11F2834201FCAA800997F2E /* HomeTableViewCell.swift */,
 				E12E5453201FAFB7002BC56F /* DoorbellViewController.swift */,
-				E12E5455201FAFB7002BC56F /* Main.storyboard */,
-				E1DCD536202673F500D53235 /* LogInViewController.swift */,
 				E11F283C202105F900997F2E /* EditGatheringViewController.swift */,
-				E11F2836201FCE0C00997F2E /* HomeTableViewController.swift */,
+				E11F2834201FCAA800997F2E /* GatheringsTableViewCell.swift */,
+				E11F2836201FCE0C00997F2E /* GatheringsTableViewController.swift */,
+				E1FE9B13201FBCEB0034A1C9 /* GoogleService-Info.plist */,
+				E1DCD536202673F500D53235 /* LogInViewController.swift */,
+				E12E5455201FAFB7002BC56F /* Main.storyboard */,
 				E1FE9B15201FBD2F0034A1C9 /* Model.swift */,
+				E1DCD53B2026C1B600D53235 /* DatabaseUtils.swift */,
 				E12E5463201FB159002BC56F /* SettingsViewController.swift */,
-				E12E5458201FAFB7002BC56F /* Assets.xcassets */,
-				E12E545A201FAFB7002BC56F /* LaunchScreen.storyboard */,
 				E12E545D201FAFB7002BC56F /* Info.plist */,
+				E1DCD5382026AA6D00D53235 /* Supporting Files */,
 			);
 			path = YouNeedADoorbell;
+			sourceTree = "<group>";
+		};
+		E1DCD5382026AA6D00D53235 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E12E544F201FAFB7002BC56F /* AppDelegate.swift */,
+				E12E5458201FAFB7002BC56F /* Assets.xcassets */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		FEFAC294553B436A0700EAE7 /* Frameworks */ = {
@@ -174,8 +182,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E12E545C201FAFB7002BC56F /* LaunchScreen.storyboard in Resources */,
 				E1FE9B14201FBCEB0034A1C9 /* GoogleService-Info.plist in Resources */,
+				E1DCD53A2026B83700D53235 /* Default-568h@2x.png in Resources */,
 				E12E5459201FAFB7002BC56F /* Assets.xcassets in Resources */,
 				E12E5457201FAFB7002BC56F /* Main.storyboard in Resources */,
 			);
@@ -250,14 +258,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E11F2835201FCAA800997F2E /* HomeTableViewCell.swift in Sources */,
+				E11F2835201FCAA800997F2E /* GatheringsTableViewCell.swift in Sources */,
 				E1FE9B16201FBD2F0034A1C9 /* Model.swift in Sources */,
 				E1DCD537202673F500D53235 /* LogInViewController.swift in Sources */,
 				E11F283D202105F900997F2E /* EditGatheringViewController.swift in Sources */,
 				E12E5454201FAFB7002BC56F /* DoorbellViewController.swift in Sources */,
 				E12E5450201FAFB7002BC56F /* AppDelegate.swift in Sources */,
-				E11F2837201FCE0C00997F2E /* HomeTableViewController.swift in Sources */,
-				E12E5452201FAFB7002BC56F /* HomeViewController.swift in Sources */,
+				E1DCD53C2026C1B600D53235 /* DatabaseUtils.swift in Sources */,
+				E11F2837201FCE0C00997F2E /* GatheringsTableViewController.swift in Sources */,
 				E12E5464201FB159002BC56F /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -271,14 +279,6 @@
 				E12E5456201FAFB7002BC56F /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		E12E545A201FAFB7002BC56F /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E12E545B201FAFB7002BC56F /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

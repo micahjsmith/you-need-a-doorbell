@@ -9,8 +9,13 @@
 import UIKit
 import SwiftDate
 import AVFoundation
+import FirebaseAuth
+import FirebaseDatabase
 
-class HomeTableViewController: UITableViewController {
+class GatheringsTableViewController: UITableViewController {
+    
+    var ref: FIRDatabaseReference!
+    
     // helper
     private var gatheringCellToEdit: Int? = nil
     
@@ -28,21 +33,36 @@ class HomeTableViewController: UITableViewController {
         }
     }
     
-    public func loadSampleData() {
-        let region = Region(tz: .americaNewYork, cal: .gregorian, loc: .englishUnitedStates)
-        let start = DateInRegion(absoluteDate: Date(), in: region)
-        let start1 = start + 4.weeks
-        let end1 = start1 + 5.hours
-        let start2 = start + 39.hours
-        let end2 = start2 + 2.hours
-        self.addGathering(title: "Poker Night", detail: "555-555-1234", startDate: start1.absoluteDate, endDate: end1.absoluteDate)
-        self.addGathering(title: "Gala Pregame", detail: "601-123-4589", startDate: start2.absoluteDate, endDate: end2.absoluteDate)
+    public func updateGathering(gathering: Gathering, atRow row: Int) {
+        self.gatherings[row] = gathering
     }
+    
+    public func loadData() {
+        guard let user = FIRAuth.auth()?.currentUser else {
+            return
+        }
+        
+        self.ref.child("users/\(user.uid)/gatherings").observe(FIRDataEventType.childAdded, with: { (snapshot) in
+            let gatheringId = snapshot.key
+            self.ref.child("gatherings/\(gatheringId)").observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
+                if let gatheringDict = snapshot.value as? Dictionary<String, String> {
+                    self.addGathering(gathering: Gathering(withDict: gatheringDict))
+                } else {
+                    print("error: couldn't find gathering")
+                    return
+                }
+            })
+        })
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadSampleData()
+        ref = FIRDatabase.database().reference()
+        
+        loadData()
+        // loadSampleData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -63,7 +83,7 @@ class HomeTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Pop a cell
         let cellIdentifier = "HomeTableViewCell"
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? HomeTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? GatheringsTableViewCell else {
             fatalError("The dequeued cell is not an instance of HomeTableViewCell")
         }
         let gathering = gatherings[indexPath.row]
@@ -122,7 +142,7 @@ class HomeTableViewController: UITableViewController {
         if segue.identifier == "edit_existing_gathering" {
             let destinationViewController = segue.destination as! EditGatheringViewController
             if let row = self.gatheringCellToEdit {
-                destinationViewController.gathering = self.gatherings[row]
+                destinationViewController.thisGathering = self.gatherings[row]
             } else {
                 // error
                 print("error")
@@ -134,10 +154,10 @@ class HomeTableViewController: UITableViewController {
     @IBAction func unwindAddNewGatheringAction(unwindSegue: UIStoryboardSegue) {
         if let senderViewController = unwindSegue.source as? EditGatheringViewController {
             if unwindSegue.identifier == "save_gathering" {
-                if let gathering = senderViewController.gathering {
+                if let gathering = senderViewController.thisGathering {
                     if self.gatheringCellToEdit != nil {
                         let row = self.gatheringCellToEdit!
-                        self.gatherings[row] = gathering
+                        self.updateGathering(gathering: gathering, atRow: row)
                         self.gatheringCellToEdit = nil
                     } else {
                         self.addGathering(gathering: gathering)

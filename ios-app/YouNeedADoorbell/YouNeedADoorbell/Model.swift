@@ -38,8 +38,30 @@ class Gathering {
         }
     }
     
+    var as_dict: [String: String] {
+        get {
+            return [
+                "title": self.title!,
+                "detail": self.detail!,
+                "startDate": self.start!.string(format: .iso8601Auto),
+                "endDate": self.end!.string(format: .iso8601Auto),
+            ]
+        }
+    }
+    
     public convenience init() {
         self.init(title: nil, detail: nil, startDate: nil, endDate: nil)
+    }
+    
+    public convenience init(withDict gathering: Dictionary<String, String>) {
+        let title = gathering["title"]
+        let detail = gathering["detail"]
+        let startDateString = gathering["startDate"]
+        // TODO this could be a bug
+        let startDate = DateInRegion(string: startDateString!, format: DateFormat.iso8601Auto, fromRegion: Region.Local())?.absoluteDate
+        let endDateString = gathering["endDate"]
+        let endDate = DateInRegion(string: endDateString!, format: DateFormat.iso8601Auto, fromRegion: Region.Local())?.absoluteDate
+        self.init(title: title, detail: detail, startDate: startDate, endDate: endDate)
     }
     
     public init(title: String?,

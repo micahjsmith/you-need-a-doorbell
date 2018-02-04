@@ -11,7 +11,7 @@ import AVFoundation
 
 class EditGatheringViewController: UITableViewController {
     
-    var gathering: Gathering?
+    var thisGathering: Gathering?
     
     // MARK: - outlets
     @IBOutlet weak var nameTextField: UITextField!
@@ -30,28 +30,28 @@ class EditGatheringViewController: UITableViewController {
     }
     
     func initGathering() {
-        if gathering == nil {
-            gathering = Gathering()
+        if thisGathering == nil {
+            thisGathering = Gathering()
         }
         
         // set fields
-        nameTextField.text = gathering?.title
-        if let date = gathering?.start {
+        nameTextField.text = thisGathering?.title
+        if let date = thisGathering?.start {
             startDatePicker.date = date
         }
-        if let date = gathering?.end {
+        if let date = thisGathering?.end {
             endDatePicker.date = date
         }
-        if let isOn = gathering?.assignHosts {
+        if let isOn = thisGathering?.assignHosts {
             assignHostsSwitch.isOn = isOn
         }
-        if let isOn = gathering?.assignRandomly {
+        if let isOn = thisGathering?.assignRandomly {
             assignRandomlySwitch.isOn = isOn
         }
         
         // elaborate way of selecting proper row in picker
         // TODO improve this
-        if let voice = gathering?.doorbell.voice.colloquialIdentifier {
+        if let voice = thisGathering?.doorbell.voice.colloquialIdentifier {
             var row = 0
             var found = false
             for v in pickerDataSourceAndDelegate.voicePickerData {
@@ -160,11 +160,11 @@ class EditGatheringViewController: UITableViewController {
     }
     
     func updateGathering() {
-        self.gathering?.title = self.nameTextField.text
-        self.gathering?.start = self.startDatePicker.date
-        self.gathering?.end = self.endDatePicker.date
-        self.gathering?.assignRandomly = self.assignRandomlySwitch.isOn
-        self.gathering?.assignHosts = self.assignHostsSwitch.isOn
+        self.thisGathering?.title = self.nameTextField.text
+        self.thisGathering?.start = self.startDatePicker.date
+        self.thisGathering?.end = self.endDatePicker.date
+        self.thisGathering?.assignRandomly = self.assignRandomlySwitch.isOn
+        self.thisGathering?.assignHosts = self.assignHostsSwitch.isOn
 
         // get item from voice picker
         let voicePicker = self.voicePicker
@@ -173,7 +173,7 @@ class EditGatheringViewController: UITableViewController {
         let row = voicePicker!.selectedRow(inComponent: component)
         let voiceIdentifier = delegate?.pickerView!(voicePicker!, titleForRow: row, forComponent: component)
         let voice = AVSpeechSynthesisVoice.fromColloquialIdentifier(identifier: voiceIdentifier!)
-        self.gathering?.doorbell.voice = voice!
+        self.thisGathering?.doorbell.voice = voice!
     }
 
 }
