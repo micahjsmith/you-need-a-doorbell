@@ -38,7 +38,7 @@ class LogInViewController: UIViewController {
             return
         }
         
-        FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, error) in
+        Auth.auth().signIn(withEmail: email, password: password, completion: { (user, error) in
             if error == nil {
                 UserDefaults.standard.set(true, forKey: "loggedIn")
                 self.performSegue(withIdentifier: "load_application", sender: self)

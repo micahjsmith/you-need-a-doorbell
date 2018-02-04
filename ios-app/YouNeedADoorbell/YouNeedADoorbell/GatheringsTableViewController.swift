@@ -15,7 +15,7 @@ import FirebaseDatabaseUI
 
 class GatheringsTableViewController: UITableViewController {
     
-    var ref: FIRDatabaseReference!
+    var ref: DatabaseReference!
     var dm: DataManager!
     
     // helpers
@@ -36,13 +36,13 @@ class GatheringsTableViewController: UITableViewController {
     
     // data
     public func loadData() {
-        guard let user = FIRAuth.auth()?.currentUser else {
+        guard let user = Auth.auth().currentUser else {
             return
         }
         
-        self.ref.child("users/\(user.uid)/gatherings").observe(FIRDataEventType.childAdded, with: { (snapshot) in
+        self.ref.child("users/\(user.uid)/gatherings").observe(DataEventType.childAdded, with: { (snapshot) in
             let gatheringId = snapshot.key
-            self.ref.child("gatherings/\(gatheringId)").observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
+            self.ref.child("gatherings/\(gatheringId)").observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
                 if let gatheringDict = snapshot.value as? Dictionary<String, String> {
                     let gathering = Gathering(withDict: gatheringDict)
                     gathering.uid = snapshot.key
@@ -60,7 +60,7 @@ class GatheringsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        ref = FIRDatabase.database().reference()
+        ref = Database.database().reference()
         dm = DataManager()
         
         loadData()

@@ -12,17 +12,17 @@ import SwiftDate
 import FirebaseAuth
 
 class DataManager {
-    var ref: FIRDatabaseReference!
+    var ref: DatabaseReference!
     
     public init() {
-        ref = FIRDatabase.database().reference()
+        ref = Database.database().reference()
     }
     
     public func writeGathering(_ gathering: Gathering) {
         // add gatherings to
         // - users/gatherings/id
         // - gatherings/id/
-        guard let user = FIRAuth.auth()?.currentUser else {
+        guard let user = Auth.auth().currentUser else {
             print("error: couldn't load user")
             return
         }
@@ -44,7 +44,7 @@ class DataManager {
     }
     
     public func deleteGathering(_ gathering: Gathering) {
-        guard let user = FIRAuth.auth()?.currentUser else {
+        guard let user = Auth.auth().currentUser else {
             print("error: couldn't load user")
             return
         }
