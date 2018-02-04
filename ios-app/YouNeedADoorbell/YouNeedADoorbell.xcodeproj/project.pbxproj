@@ -17,7 +17,6 @@
 		E12E5459201FAFB7002BC56F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E12E5458201FAFB7002BC56F /* Assets.xcassets */; };
 		E12E5464201FB159002BC56F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E5463201FB159002BC56F /* SettingsViewController.swift */; };
 		E1DCD537202673F500D53235 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DCD536202673F500D53235 /* LogInViewController.swift */; };
-		E1DCD53A2026B83700D53235 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1DCD5392026B83700D53235 /* Default-568h@2x.png */; };
 		E1DCD53C2026C1B600D53235 /* DatabaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DCD53B2026C1B600D53235 /* DatabaseUtils.swift */; };
 		E1FE9B14201FBCEB0034A1C9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1FE9B13201FBCEB0034A1C9 /* GoogleService-Info.plist */; };
 		E1FE9B16201FBD2F0034A1C9 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FE9B15201FBD2F0034A1C9 /* Model.swift */; };
@@ -38,7 +37,6 @@
 		E12E5463201FB159002BC56F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E1C5B4943F35D340B248B66F /* Pods-YouNeedADoorbell.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouNeedADoorbell.release.xcconfig"; path = "Pods/Target Support Files/Pods-YouNeedADoorbell/Pods-YouNeedADoorbell.release.xcconfig"; sourceTree = "<group>"; };
 		E1DCD536202673F500D53235 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
-		E1DCD5392026B83700D53235 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		E1DCD53B2026C1B600D53235 /* DatabaseUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseUtils.swift; sourceTree = "<group>"; };
 		E1FE9B13201FBCEB0034A1C9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E1FE9B15201FBD2F0034A1C9 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -68,7 +66,6 @@
 		E12E5443201FAFB6002BC56F = {
 			isa = PBXGroup;
 			children = (
-				E1DCD5392026B83700D53235 /* Default-568h@2x.png */,
 				FEFAC294553B436A0700EAE7 /* Frameworks */,
 				8F4049E9FEC1836C138DF9B9 /* Pods */,
 				E12E544D201FAFB7002BC56F /* Products */,
@@ -183,7 +180,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1FE9B14201FBCEB0034A1C9 /* GoogleService-Info.plist in Resources */,
-				E1DCD53A2026B83700D53235 /* Default-568h@2x.png in Resources */,
 				E12E5459201FAFB7002BC56F /* Assets.xcassets in Resources */,
 				E12E5457201FAFB7002BC56F /* Main.storyboard in Resources */,
 			);

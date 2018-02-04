@@ -13,6 +13,8 @@ import AVFoundation
 class Gathering {
     static let DEFAULT_DETAIL = "555-555-1234"
     
+    public var uid: String?
+    
     var title: String?
     var detail: String?
     var start: Date?

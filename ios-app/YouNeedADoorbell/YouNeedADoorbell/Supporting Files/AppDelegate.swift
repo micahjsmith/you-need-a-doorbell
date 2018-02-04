@@ -29,7 +29,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // sample data
         // TODO remove
-        let _ = SampleDataManager().dropDatabase().loadSampleData()
+        let sampleDataManager = SampleDataManager()
+        sampleDataManager.dropDatabase()
+        sampleDataManager.loadSampleData()
 
         return true
     }

@@ -15,28 +15,25 @@ import FirebaseDatabase
 class GatheringsTableViewController: UITableViewController {
     
     var ref: FIRDatabaseReference!
+    var dm: DataManager!
     
-    // helper
+    // helpers
     private var gatheringCellToEdit: Int? = nil
-    
     private var gatherings = [Gathering]()
-    
     public func addGathering(title: String?, detail: String?, startDate: Date?, endDate: Date?) {
         let gathering = Gathering(title: title, detail: detail, startDate: startDate, endDate: endDate)
         self.addGathering(gathering: gathering)
     }
-    
     public func addGathering(gathering: Gathering?) {
         if let gathering = gathering {
-            gatherings.append(gathering)
-            tableView.reloadData()
+            self.dm.writeGathering(gathering)
         }
     }
-    
     public func updateGathering(gathering: Gathering, atRow row: Int) {
-        self.gatherings[row] = gathering
+        self.dm.updateGathering(gathering)
     }
     
+    // data
     public func loadData() {
         guard let user = FIRAuth.auth()?.currentUser else {
             return
@@ -46,7 +43,10 @@ class GatheringsTableViewController: UITableViewController {
             let gatheringId = snapshot.key
             self.ref.child("gatherings/\(gatheringId)").observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
                 if let gatheringDict = snapshot.value as? Dictionary<String, String> {
-                    self.addGathering(gathering: Gathering(withDict: gatheringDict))
+                    let gathering = Gathering(withDict: gatheringDict)
+                    gathering.uid = snapshot.key
+                    self.gatherings.append(gathering)
+                    self.tableView.reloadData()
                 } else {
                     print("error: couldn't find gathering")
                     return
@@ -60,9 +60,9 @@ class GatheringsTableViewController: UITableViewController {
         super.viewDidLoad()
         
         ref = FIRDatabase.database().reference()
+        dm = DataManager()
         
         loadData()
-        // loadSampleData()
     }
     
     override func didReceiveMemoryWarning() {
