@@ -18,6 +18,7 @@
 		E12E5459201FAFB7002BC56F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E12E5458201FAFB7002BC56F /* Assets.xcassets */; };
 		E12E545C201FAFB7002BC56F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E12E545A201FAFB7002BC56F /* LaunchScreen.storyboard */; };
 		E12E5464201FB159002BC56F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E5463201FB159002BC56F /* SettingsViewController.swift */; };
+		E1DCD537202673F500D53235 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DCD536202673F500D53235 /* LogInViewController.swift */; };
 		E1FE9B14201FBCEB0034A1C9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1FE9B13201FBCEB0034A1C9 /* GoogleService-Info.plist */; };
 		E1FE9B16201FBD2F0034A1C9 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FE9B15201FBD2F0034A1C9 /* Model.swift */; };
 /* End PBXBuildFile section */
@@ -38,6 +39,7 @@
 		E12E545D201FAFB7002BC56F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E12E5463201FB159002BC56F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E1C5B4943F35D340B248B66F /* Pods-YouNeedADoorbell.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouNeedADoorbell.release.xcconfig"; path = "Pods/Target Support Files/Pods-YouNeedADoorbell/Pods-YouNeedADoorbell.release.xcconfig"; sourceTree = "<group>"; };
+		E1DCD536202673F500D53235 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		E1FE9B13201FBCEB0034A1C9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E1FE9B15201FBD2F0034A1C9 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,6 +92,7 @@
 				E11F2834201FCAA800997F2E /* HomeTableViewCell.swift */,
 				E12E5453201FAFB7002BC56F /* DoorbellViewController.swift */,
 				E12E5455201FAFB7002BC56F /* Main.storyboard */,
+				E1DCD536202673F500D53235 /* LogInViewController.swift */,
 				E11F283C202105F900997F2E /* AddNewGatheringTableViewController.swift */,
 				E11F2836201FCE0C00997F2E /* HomeTableViewController.swift */,
 				E1FE9B15201FBD2F0034A1C9 /* Model.swift */,
@@ -249,6 +252,7 @@
 			files = (
 				E11F2835201FCAA800997F2E /* HomeTableViewCell.swift in Sources */,
 				E1FE9B16201FBD2F0034A1C9 /* Model.swift in Sources */,
+				E1DCD537202673F500D53235 /* LogInViewController.swift in Sources */,
 				E11F283D202105F900997F2E /* AddNewGatheringTableViewController.swift in Sources */,
 				E12E5454201FAFB7002BC56F /* DoorbellViewController.swift in Sources */,
 				E12E5450201FAFB7002BC56F /* AppDelegate.swift in Sources */,

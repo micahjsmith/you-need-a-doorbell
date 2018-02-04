@@ -18,6 +18,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FIRApp.configure()
+        
+        // logged in?
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if UserDefaults.standard.bool(forKey: "loggedIn") {
+            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "app")
+        } else {
+            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "login")
+        }
+
         return true
     }
 
