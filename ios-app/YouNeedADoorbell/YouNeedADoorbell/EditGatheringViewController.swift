@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class AddNewGatheringTableViewController: UITableViewController {
+class EditGatheringViewController: UITableViewController {
     
     var gathering: Gathering?
     

@@ -120,7 +120,7 @@ class HomeTableViewController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "edit_existing_gathering" {
-            let destinationViewController = segue.destination as! AddNewGatheringTableViewController
+            let destinationViewController = segue.destination as! EditGatheringViewController
             if let row = self.gatheringCellToEdit {
                 destinationViewController.gathering = self.gatherings[row]
             } else {
@@ -132,7 +132,7 @@ class HomeTableViewController: UITableViewController {
     }
     
     @IBAction func unwindAddNewGatheringAction(unwindSegue: UIStoryboardSegue) {
-        if let senderViewController = unwindSegue.source as? AddNewGatheringTableViewController {
+        if let senderViewController = unwindSegue.source as? EditGatheringViewController {
             if unwindSegue.identifier == "save_gathering" {
                 if let gathering = senderViewController.gathering {
                     if self.gatheringCellToEdit != nil {

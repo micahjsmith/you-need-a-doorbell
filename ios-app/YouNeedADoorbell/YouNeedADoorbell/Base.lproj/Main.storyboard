@@ -76,34 +76,6 @@
             </objects>
             <point key="canvasLocation" x="761" y="157"/>
         </scene>
-        <!--Item-->
-        <scene sceneID="rrO-2A-bD1">
-            <objects>
-                <viewController id="Npz-hS-Wna" customClass="SettingsViewController" customModule="YouNeedADoorbell" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="33h-b7-sjU">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Q8-4k-uae">
-                                <rect key="frame" x="128" y="215" width="64" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="0Q8-4k-uae" firstAttribute="centerX" secondItem="U10-ql-z4z" secondAttribute="centerX" id="doc-9I-kRe"/>
-                            <constraint firstItem="0Q8-4k-uae" firstAttribute="centerY" secondItem="U10-ql-z4z" secondAttribute="centerY" id="fa0-EQ-Drg"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="U10-ql-z4z"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="Aix-Ex-zld"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="a3R-sq-fdO" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="761" y="872"/>
-        </scene>
         <!--Login-->
         <scene sceneID="b6K-k8-BUc">
             <objects>
@@ -143,7 +115,6 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mce-VT-bW0">
                                 <rect key="frame" x="119" y="325" width="82" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="0.57810515169999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Log in"/>
                                 <connections>
                                     <action selector="logInPressed:" destination="Slm-MI-ZJN" eventType="touchUpInside" id="Oe3-lK-6YB"/>
@@ -176,7 +147,6 @@
                     <connections>
                         <segue destination="P55-Tz-XaR" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
-                        <segue destination="Npz-hS-Wna" kind="relationship" relationship="viewControllers" id="jMk-h0-KTE"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -186,7 +156,7 @@
         <!--Add New Gathering-->
         <scene sceneID="uxF-tf-JaI">
             <objects>
-                <tableViewController title="Add New Gathering" id="OhN-4y-dar" customClass="AddNewGatheringTableViewController" customModule="YouNeedADoorbell" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Add New Gathering" id="OhN-4y-dar" customClass="EditGatheringViewController" customModule="YouNeedADoorbell" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="ept-PT-swz">
                         <rect key="frame" x="0.0" y="0.0" width="304" height="351"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
