@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class EditGatheringViewController: UITableViewController {
+class GatheringDetailViewController: UITableViewController {
     
     var dm: DatabaseManager?
     var gatheringKey: String?

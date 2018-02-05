@@ -103,7 +103,7 @@ class GatheringsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "edit_existing_gathering" {
             guard let indexPath: IndexPath = sender as? IndexPath else { return }
-            guard let destinationViewController = segue.destination as? EditGatheringViewController else {
+            guard let destinationViewController = segue.destination as? GatheringDetailViewController else {
                 return
             }
             if let dataSource = self.dataSource {

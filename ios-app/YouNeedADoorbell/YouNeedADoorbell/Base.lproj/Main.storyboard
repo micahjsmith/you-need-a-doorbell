@@ -156,7 +156,7 @@
         <!--Gathering Detail-->
         <scene sceneID="uxF-tf-JaI">
             <objects>
-                <tableViewController id="OhN-4y-dar" customClass="EditGatheringViewController" customModule="YouNeedADoorbell" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="OhN-4y-dar" customClass="GatheringDetailViewController" customModule="YouNeedADoorbell" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="ept-PT-swz">
                         <rect key="frame" x="0.0" y="0.0" width="304" height="351"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

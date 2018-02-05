@@ -10,7 +10,7 @@
 		205B0AB937360C4C8F2730FE /* Pods_YouNeedADoorbell.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AC6E7DD3FFC656E17726E6 /* Pods_YouNeedADoorbell.framework */; };
 		E11F2835201FCAA800997F2E /* GatheringsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11F2834201FCAA800997F2E /* GatheringsTableViewCell.swift */; };
 		E11F2837201FCE0C00997F2E /* GatheringsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11F2836201FCE0C00997F2E /* GatheringsTableViewController.swift */; };
-		E11F283D202105F900997F2E /* EditGatheringViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11F283C202105F900997F2E /* EditGatheringViewController.swift */; };
+		E11F283D202105F900997F2E /* GatheringDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11F283C202105F900997F2E /* GatheringDetailViewController.swift */; };
 		E12E5450201FAFB7002BC56F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E544F201FAFB7002BC56F /* AppDelegate.swift */; };
 		E12E5454201FAFB7002BC56F /* DoorbellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E5453201FAFB7002BC56F /* DoorbellViewController.swift */; };
 		E12E5457201FAFB7002BC56F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E12E5455201FAFB7002BC56F /* Main.storyboard */; };
@@ -27,7 +27,7 @@
 		81AC6E7DD3FFC656E17726E6 /* Pods_YouNeedADoorbell.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YouNeedADoorbell.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E11F2834201FCAA800997F2E /* GatheringsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatheringsTableViewCell.swift; sourceTree = "<group>"; };
 		E11F2836201FCE0C00997F2E /* GatheringsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatheringsTableViewController.swift; sourceTree = "<group>"; };
-		E11F283C202105F900997F2E /* EditGatheringViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGatheringViewController.swift; sourceTree = "<group>"; };
+		E11F283C202105F900997F2E /* GatheringDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatheringDetailViewController.swift; sourceTree = "<group>"; };
 		E12E544C201FAFB7002BC56F /* YouNeedADoorbell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YouNeedADoorbell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E12E544F201FAFB7002BC56F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E12E5453201FAFB7002BC56F /* DoorbellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoorbellViewController.swift; sourceTree = "<group>"; };
@@ -85,7 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				E12E5453201FAFB7002BC56F /* DoorbellViewController.swift */,
-				E11F283C202105F900997F2E /* EditGatheringViewController.swift */,
+				E11F283C202105F900997F2E /* GatheringDetailViewController.swift */,
 				E11F2834201FCAA800997F2E /* GatheringsTableViewCell.swift */,
 				E11F2836201FCE0C00997F2E /* GatheringsTableViewController.swift */,
 				E1FE9B13201FBCEB0034A1C9 /* GoogleService-Info.plist */,
@@ -259,7 +259,7 @@
 				E11F2835201FCAA800997F2E /* GatheringsTableViewCell.swift in Sources */,
 				E1FE9B16201FBD2F0034A1C9 /* Model.swift in Sources */,
 				E1DCD537202673F500D53235 /* LogInViewController.swift in Sources */,
-				E11F283D202105F900997F2E /* EditGatheringViewController.swift in Sources */,
+				E11F283D202105F900997F2E /* GatheringDetailViewController.swift in Sources */,
 				E12E5454201FAFB7002BC56F /* DoorbellViewController.swift in Sources */,
 				E12E5450201FAFB7002BC56F /* AppDelegate.swift in Sources */,
 				E1DCD53C2026C1B600D53235 /* DatabaseUtils.swift in Sources */,
