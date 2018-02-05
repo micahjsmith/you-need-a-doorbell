@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import PhoneNumberKit
 
 class GatheringDetailViewController: UITableViewController {
     
@@ -16,7 +17,7 @@ class GatheringDetailViewController: UITableViewController {
     
     // MARK: - outlets
     @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var contactTextField: UITextField!
+    @IBOutlet weak var contactTextField: PhoneNumberTextField!
     @IBOutlet weak var startDatePicker: UIDatePicker!
     @IBOutlet weak var endDatePicker: UIDatePicker!
     @IBOutlet weak var assignHostsSwitch: UISwitch!

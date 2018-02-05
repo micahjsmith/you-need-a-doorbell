@@ -10,9 +10,10 @@ import Foundation
 import SwiftDate
 import AVFoundation
 import FirebaseDatabase
+import PhoneNumberKit
 
 class Gathering {
-    static let DEFAULT_CONTACT = ""
+    static let DEFAULT_CONTACT = "(555) 555-1234"
     
     public var uid: String?
     
@@ -94,7 +95,24 @@ class Gathering {
                 assignRandomly: Bool = false,
                 doorbell: Doorbell? = nil) {
         self.title = title
-        self.contact = contact ?? Gathering.DEFAULT_CONTACT
+        
+        // TODO clean up
+        if let contact = contact {
+            self.contact = contact
+        } else {
+            self.contact = Gathering.DEFAULT_CONTACT
+        }
+        do {
+            let phoneNumberKit = PhoneNumberKit()
+            let phoneNumber = try phoneNumberKit.parse(self.contact!)
+            self.contact = phoneNumberKit.format(phoneNumber, toType: .national)
+        }
+        catch {
+            print("Generic parser error")
+            print(error)
+            print(self.contact!)
+        }
+        
         self.start = startDate
         self.end = endDate
         
