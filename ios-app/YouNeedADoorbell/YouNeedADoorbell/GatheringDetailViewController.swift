@@ -16,6 +16,7 @@ class GatheringDetailViewController: UITableViewController {
     
     // MARK: - outlets
     @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var contactTextField: UITextField!
     @IBOutlet weak var startDatePicker: UIDatePicker!
     @IBOutlet weak var endDatePicker: UIDatePicker!
     @IBOutlet weak var assignHostsSwitch: UISwitch!
@@ -49,6 +50,7 @@ class GatheringDetailViewController: UITableViewController {
         
         // set fields
         nameTextField.text = gathering.title
+        contactTextField.text = gathering.contact
         if let date = gathering.start {
             startDatePicker.date = date
         }
@@ -78,7 +80,7 @@ class GatheringDetailViewController: UITableViewController {
     
     func getGathering() -> Gathering {
         let title = self.nameTextField.text
-        let detail = Gathering.DEFAULT_DETAIL // TODO
+        let contact = self.contactTextField.text
         let startDate = self.startDatePicker.date
         let endDate = self.endDatePicker.date
         let assignRandomly = self.assignRandomlySwitch.isOn
@@ -100,7 +102,13 @@ class GatheringDetailViewController: UITableViewController {
             }
         }
         
-        let gathering = Gathering(title: title, detail: detail, startDate: startDate, endDate: endDate, assignHosts: assignHosts, assignRandomly: assignRandomly, doorbell: doorbell)
+        let gathering = Gathering(title: title,
+                                  contact: contact,
+                                  startDate: startDate,
+                                  endDate: endDate,
+                                  assignHosts: assignHosts,
+                                  assignRandomly: assignRandomly,
+                                  doorbell: doorbell)
         
         if let uid = self.gatheringKey {
             gathering.uid = uid

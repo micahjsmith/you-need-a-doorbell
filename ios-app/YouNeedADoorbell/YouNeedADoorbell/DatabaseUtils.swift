@@ -79,17 +79,17 @@ class SampleDataManager : DatabaseManager {
         
         // create first sample gathering
         let title1 = "Poker Night"
-        let detail1 = "555-555-1234"
+        let contact1 = "555-555-1234"
         let start1 = start + 4.weeks
         let end1 = start1 + 5.hours
-        let gathering1 = Gathering(title: title1, detail: detail1, startDate: start1.absoluteDate, endDate: end1.absoluteDate)
+        let gathering1 = Gathering(title: title1, contact: contact1, startDate: start1.absoluteDate, endDate: end1.absoluteDate)
         
         // create second sample gathering
         let title2 = "Gala Pregame"
-        let detail2 = "601-123-4589"
+        let contact2 = "601-123-4589"
         let start2 = start + 39.hours
         let end2 = start2 + 2.hours
-        let gathering2 = Gathering(title: title2, detail: detail2, startDate: start2.absoluteDate, endDate: end2.absoluteDate)
+        let gathering2 = Gathering(title: title2, contact: contact2, startDate: start2.absoluteDate, endDate: end2.absoluteDate)
         
         for gathering in [gathering1, gathering2] {
             self.writeGathering(gathering)

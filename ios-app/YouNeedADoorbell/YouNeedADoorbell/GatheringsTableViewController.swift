@@ -44,7 +44,7 @@ class GatheringsTableViewController: UITableViewController {
             /* populate cell */
             guard let gathering = Gathering(snapshot: snapshot) else { return cell }
             cell.titleLabel?.text = gathering.title
-            cell.detailLabel?.text = gathering.detail
+            cell.contactLabel?.text = gathering.contact
             cell.occursWhenLabel?.text = gathering.occursWhen
             return cell
         }
@@ -113,6 +113,6 @@ class GatheringsTableViewController: UITableViewController {
     }
     
     @IBAction func unwindFromSaveGatheringsDetail(_ segue: UIStoryboardSegue) {
-        print("in unwindFromSaveGatheringsDetail")
+        // pass
     }
 }

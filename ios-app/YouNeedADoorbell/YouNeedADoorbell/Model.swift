@@ -12,12 +12,12 @@ import AVFoundation
 import FirebaseDatabase
 
 class Gathering {
-    static let DEFAULT_DETAIL = "555-555-1234"
+    static let DEFAULT_CONTACT = ""
     
     public var uid: String?
     
     var title: String?
-    var detail: String?
+    var contact: String?
     var start: Date?
     var end: Date?
     
@@ -45,7 +45,7 @@ class Gathering {
         get {
             return [
                 "title": self.title!,
-                "detail": self.detail!,
+                "contact": self.contact!,
                 "startDate": self.start!.string(format: .iso8601Auto),
                 "endDate": self.end!.string(format: .iso8601Auto),
                 "assignHosts": self.assignHosts,
@@ -56,12 +56,12 @@ class Gathering {
     }
     
     public convenience init() {
-        self.init(title: nil, detail: nil, startDate: nil, endDate: nil)
+        self.init(title: nil, contact: nil, startDate: nil, endDate: nil)
     }
     
     public convenience init(fromDict gathering: Dictionary<String, Any>) {
         let title = gathering["title"] as! String
-        let detail = gathering["detail"] as! String
+        let contact = gathering["contact"] as! String
         let startDateString = gathering["startDate"] as! String
         // TODO this could be a bug
         let startDate = DateInRegion(string: startDateString, format: DateFormat.iso8601Auto, fromRegion: Region.Local())?.absoluteDate
@@ -71,7 +71,7 @@ class Gathering {
         let assignRandomly = gathering["assignRandomly"] as! Bool
         let doorbell = Doorbell(fromDict: gathering["doorbell"] as! Dictionary<String, String>)
         self.init(title: title,
-                  detail: detail,
+                  contact: contact,
                   startDate: startDate,
                   endDate: endDate,
                   assignHosts: assignHosts,
@@ -87,14 +87,14 @@ class Gathering {
     }
     
     public init(title: String?,
-                detail: String?,
+                contact: String?,
                 startDate: Date?,
                 endDate: Date?,
                 assignHosts: Bool = false,
                 assignRandomly: Bool = false,
                 doorbell: Doorbell? = nil) {
         self.title = title
-        self.detail = detail ?? Gathering.DEFAULT_DETAIL
+        self.contact = contact ?? Gathering.DEFAULT_CONTACT
         self.start = startDate
         self.end = endDate
         

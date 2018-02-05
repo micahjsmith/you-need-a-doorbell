@@ -13,7 +13,7 @@ class GatheringsTableViewCell: UITableViewCell {
     // MARK: -Properties
     
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var detailLabel: UILabel!
+    @IBOutlet weak var contactLabel: UILabel!
     @IBOutlet weak var occursWhenLabel: UILabel!
     
     override func awakeFromNib() {
