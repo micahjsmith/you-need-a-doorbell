@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let sampleDataManager = SampleDataManager()
         sampleDataManager.dropDatabase()
         sampleDataManager.loadSampleData()
-
+        
         return true
     }
 

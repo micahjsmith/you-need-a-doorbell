@@ -16,54 +16,40 @@ import FirebaseDatabaseUI
 class GatheringsTableViewController: UITableViewController {
     
     var ref: DatabaseReference!
-    var dm: DataManager!
+    var dm: DatabaseManager!
+    
+    // table
+    var dataSource: FUITableViewDataSource?
     
     // helpers
-    private var gatheringCellToEdit: Int? = nil
-    private var gatherings = [Gathering]()
-    public func addGathering(title: String?, detail: String?, startDate: Date?, endDate: Date?) {
-        let gathering = Gathering(title: title, detail: detail, startDate: startDate, endDate: endDate)
-        self.addGathering(gathering: gathering)
-    }
-    public func addGathering(gathering: Gathering?) {
-        if let gathering = gathering {
-            self.dm.writeGathering(gathering)
-        }
-    }
-    public func updateGathering(gathering: Gathering, atRow row: Int) {
-        self.dm.updateGathering(gathering)
+    public func getUid() -> String {
+        return (Auth.auth().currentUser?.uid)!
     }
     
-    // data
-    public func loadData() {
-        guard let user = Auth.auth().currentUser else {
-            return
-        }
-        
-        self.ref.child("users/\(user.uid)/gatherings").observe(DataEventType.childAdded, with: { (snapshot) in
-            let gatheringId = snapshot.key
-            self.ref.child("gatherings/\(gatheringId)").observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
-                if let gatheringDict = snapshot.value as? Dictionary<String, String> {
-                    let gathering = Gathering(withDict: gatheringDict)
-                    gathering.uid = snapshot.key
-                    self.gatherings.append(gathering)
-                    self.tableView.reloadData()
-                } else {
-                    print("error: couldn't find gathering")
-                    return
-                }
-            })
-        })
+    public func getQuery() -> DatabaseQuery {
+        let query: DatabaseQuery = self.ref.child("users/\(getUid())/gatherings").queryOrdered(byChild: "startDate")
+        return query
     }
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         ref = Database.database().reference()
-        dm = DataManager()
+        dm = DatabaseManager()
         
-        loadData()
+        self.dataSource = self.tableView.bind(to: getQuery()) { tableView, indexPath, snapshot in
+            // Dequeue cell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "gatheringsTableViewCell", for: indexPath) as! GatheringsTableViewCell
+            
+            /* populate cell */
+            guard let gathering = Gathering(snapshot: snapshot) else { return cell }
+            cell.titleLabel?.text = gathering.title
+            cell.detailLabel?.text = gathering.detail
+            cell.occursWhenLabel?.text = gathering.occursWhen
+            return cell
+        }
+        
+        self.tableView.dataSource = self.dataSource
     }
     
     override func didReceiveMemoryWarning() {
@@ -73,33 +59,8 @@ class GatheringsTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return gatherings.count
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Pop a cell
-        let cellIdentifier = "HomeTableViewCell"
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? GatheringsTableViewCell else {
-            fatalError("The dequeued cell is not an instance of HomeTableViewCell")
-        }
-        let gathering = gatherings[indexPath.row]
-        
-        // Configure the cell
-        cell.titleLabel.text = gathering.title
-        cell.contactLabel.text = gathering.detail
-        cell.occursWhenLabel.text = gathering.starts_in
-        
-        return cell
-    }
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.gatheringCellToEdit = indexPath.row
-        performSegue(withIdentifier: "edit_existing_gathering", sender: self)
+        performSegue(withIdentifier: "edit_existing_gathering", sender: indexPath)
     }
     
     /*
@@ -141,30 +102,17 @@ class GatheringsTableViewController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "edit_existing_gathering" {
-            let destinationViewController = segue.destination as! EditGatheringViewController
-            if let row = self.gatheringCellToEdit {
-                destinationViewController.thisGathering = self.gatherings[row]
-            } else {
-                // error
-                print("error")
+            guard let indexPath: IndexPath = sender as? IndexPath else { return }
+            guard let destinationViewController = segue.destination as? EditGatheringViewController else {
                 return
+            }
+            if let dataSource = self.dataSource {
+                destinationViewController.gatheringKey = dataSource.snapshot(at: indexPath.row).key
             }
         }
     }
     
-    @IBAction func unwindAddNewGatheringAction(unwindSegue: UIStoryboardSegue) {
-        if let senderViewController = unwindSegue.source as? EditGatheringViewController {
-            if unwindSegue.identifier == "save_gathering" {
-                if let gathering = senderViewController.thisGathering {
-                    if self.gatheringCellToEdit != nil {
-                        let row = self.gatheringCellToEdit!
-                        self.updateGathering(gathering: gathering, atRow: row)
-                        self.gatheringCellToEdit = nil
-                    } else {
-                        self.addGathering(gathering: gathering)
-                    }
-                }
-            }
-        }
+    @IBAction func unwindFromSaveGatheringsDetail(_ segue: UIStoryboardSegue) {
+        print("in unwindFromSaveGatheringsDetail")
     }
 }

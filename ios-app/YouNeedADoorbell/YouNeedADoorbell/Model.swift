@@ -9,6 +9,7 @@
 import Foundation
 import SwiftDate
 import AVFoundation
+import FirebaseDatabase
 
 class Gathering {
     static let DEFAULT_DETAIL = "555-555-1234"
@@ -32,7 +33,7 @@ class Gathering {
     var blockedList: [String] = []
     
     // MARK: - computed properties
-    var starts_in: String? {
+    var occursWhen: String? {
         get {
             let now = DateInRegion()
             let (colloquial, _) = try! start!.colloquial(to: now.absoluteDate)
@@ -40,13 +41,16 @@ class Gathering {
         }
     }
     
-    var as_dict: [String: String] {
+    var asDict: [String: Any] {
         get {
             return [
                 "title": self.title!,
                 "detail": self.detail!,
                 "startDate": self.start!.string(format: .iso8601Auto),
                 "endDate": self.end!.string(format: .iso8601Auto),
+                "assignHosts": self.assignHosts,
+                "assignRandomly": self.assignRandomly,
+                "doorbell": self.doorbell.asDict,
             ]
         }
     }
@@ -55,15 +59,31 @@ class Gathering {
         self.init(title: nil, detail: nil, startDate: nil, endDate: nil)
     }
     
-    public convenience init(withDict gathering: Dictionary<String, String>) {
-        let title = gathering["title"]
-        let detail = gathering["detail"]
-        let startDateString = gathering["startDate"]
+    public convenience init(fromDict gathering: Dictionary<String, Any>) {
+        let title = gathering["title"] as! String
+        let detail = gathering["detail"] as! String
+        let startDateString = gathering["startDate"] as! String
         // TODO this could be a bug
-        let startDate = DateInRegion(string: startDateString!, format: DateFormat.iso8601Auto, fromRegion: Region.Local())?.absoluteDate
-        let endDateString = gathering["endDate"]
-        let endDate = DateInRegion(string: endDateString!, format: DateFormat.iso8601Auto, fromRegion: Region.Local())?.absoluteDate
-        self.init(title: title, detail: detail, startDate: startDate, endDate: endDate)
+        let startDate = DateInRegion(string: startDateString, format: DateFormat.iso8601Auto, fromRegion: Region.Local())?.absoluteDate
+        let endDateString = gathering["endDate"] as! String
+        let endDate = DateInRegion(string: endDateString, format: DateFormat.iso8601Auto, fromRegion: Region.Local())?.absoluteDate
+        let assignHosts = gathering["assignHosts"] as! Bool
+        let assignRandomly = gathering["assignRandomly"] as! Bool
+        let doorbell = Doorbell(fromDict: gathering["doorbell"] as! Dictionary<String, String>)
+        self.init(title: title,
+                  detail: detail,
+                  startDate: startDate,
+                  endDate: endDate,
+                  assignHosts: assignHosts,
+                  assignRandomly: assignRandomly,
+                  doorbell: doorbell)
+    }
+    
+    public convenience init?(snapshot: DataSnapshot) {
+        let uid = snapshot.key
+        guard let gatheringDict = snapshot.value as? Dictionary<String, Any> else { return nil }
+        self.init(fromDict: gatheringDict)
+        self.uid = uid
     }
     
     public init(title: String?,
@@ -102,13 +122,36 @@ class Doorbell {
     var arrivalMessage: String
     var assignmentMessage: String
     
+    var asDict: Dictionary<String, String> {
+        get {
+            return [
+                "doorbellText": self.doorbellText,
+                "voiceIdentifier": self.voice.identifier,
+                "arrivalMessage": self.arrivalMessage,
+                "assignmentMessage": self.assignmentMessage,
+            ]
+        }
+    }
+    
     public convenience init() {
         self.init(doorbellText: nil, voiceIdentifier: nil, arrivalMessage: nil, assignmentMessage: nil)
     }
     
-    public convenience init(voiceIdentifier: String) {
-        self.init(doorbellText: nil, voiceIdentifier: voiceIdentifier, arrivalMessage: nil, assignmentMessage: nil)
+    public convenience init(voiceIdentifier identifier: String) {
+        self.init(doorbellText: nil, voiceIdentifier: identifier, arrivalMessage: nil, assignmentMessage: nil)
     }
+    
+    public convenience init(fromDict dict: Dictionary<String, String>) {
+        let doorbellText = dict["doorbellText"]
+        let identifier = dict["voiceIdentifier"]
+        let arrivalMessage = dict["arrivalMessage"]
+        let assignmentMessage = dict["assignmentMessage"]
+        self.init(doorbellText: doorbellText,
+                  voiceIdentifier: identifier,
+                  arrivalMessage: arrivalMessage,
+                  assignmentMessage: assignmentMessage)
+    }
+    
     
     public init(doorbellText: String?, voiceIdentifier: String?, arrivalMessage: String?, assignmentMessage: String?) {
         self.doorbellText = doorbellText ?? Doorbell.DEFAULT_DOORBELL_TEXT
@@ -138,6 +181,10 @@ extension AVSpeechSynthesisVoice {
         get {
             return "\(self.name) (\(self.language))"
         }
+    }
+    
+    static func getIdentifier(fromColloquialIdentifier colloquialIdentifier: String) -> String? {
+        return AVSpeechSynthesisVoice.fromColloquialIdentifier(identifier: colloquialIdentifier)?.identifier
     }
     
     static func fromColloquialIdentifier(identifier: String) -> AVSpeechSynthesisVoice? {

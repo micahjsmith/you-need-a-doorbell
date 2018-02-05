@@ -11,48 +11,52 @@ import FirebaseDatabase
 import SwiftDate
 import FirebaseAuth
 
-class DataManager {
+class DatabaseManager {
     var ref: DatabaseReference!
     
     public init() {
         ref = Database.database().reference()
     }
     
+    public func getUserUid() -> String {
+        return (Auth.auth().currentUser?.uid)!
+    }
+    
+    public func readGathering(withKey key: String, completion: @escaping (Gathering?) -> ()) {
+        ref.child("/users/\(getUserUid())/gatherings/\(key)").observeSingleEvent(of: .value) { (snapshot) in
+            let gathering = Gathering(snapshot: snapshot)
+            completion(gathering)
+        }
+    }
+    
     public func writeGathering(_ gathering: Gathering) {
         // add gatherings to
         // - users/gatherings/id
-        // - gatherings/id/
-        guard let user = Auth.auth().currentUser else {
-            print("error: couldn't load user")
-            return
-        }
         
         let key = ref.child("gatherings").childByAutoId().key
         let updates = [
-            "/gatherings/\(key)": gathering.as_dict,
-            "/users/\(user.uid)/gatherings/\(key)": true,
+            "/users/\(getUserUid())/gatherings/\(key)": gathering.asDict,
             ] as [String : Any]
         ref.updateChildValues(updates) { (error, _) in
-            print("error adding sample data")
+            if let error = error {
+                print("error adding data")
+                print(error)
+            }
         }
     }
     
     public func updateGathering(_ gathering: Gathering) {
         if let key = gathering.uid {
-            ref.child("/gatherings/\(key)").setValue(gathering.as_dict)
+            ref.child("/users/\(getUserUid())/gatherings/\(key)").setValue(gathering.asDict)
+        } else {
+            print("error: wasn't able to update gathering")
         }
     }
     
     public func deleteGathering(_ gathering: Gathering) {
-        guard let user = Auth.auth().currentUser else {
-            print("error: couldn't load user")
-            return
-        }
-        
         if let key = gathering.uid {
             let updates = [
-                "/gatherings/\(key)": NSNull(),
-                "/users/\(user.uid)/gatherings/\(key)": NSNull(),
+                "/users/\(getUserUid())/gatherings/\(key)": NSNull(),
                 ] as [String : Any]
             ref.updateChildValues(updates)
         }
@@ -60,7 +64,7 @@ class DataManager {
 
 }
 
-class SampleDataManager : DataManager {
+class SampleDataManager : DatabaseManager {
     
     
     public func dropDatabase() {

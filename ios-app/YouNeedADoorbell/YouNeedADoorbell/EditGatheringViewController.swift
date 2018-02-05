@@ -11,7 +11,8 @@ import AVFoundation
 
 class EditGatheringViewController: UITableViewController {
     
-    var thisGathering: Gathering?
+    var dm: DatabaseManager?
+    var gatheringKey: String?
     
     // MARK: - outlets
     @IBOutlet weak var nameTextField: UITextField!
@@ -30,48 +31,89 @@ class EditGatheringViewController: UITableViewController {
     }
     
     func initGathering() {
-        if thisGathering == nil {
-            thisGathering = Gathering()
+        if let gatheringKey = self.gatheringKey {
+            self.dm?.readGathering(withKey: gatheringKey, completion: { (gathering) in
+                if let gathering_ = gathering {
+                    self.setGathering(gathering_)
+                } else {
+                    print("error: couldn't read gathering")
+                    self.setGathering(Gathering())
+                }
+            })
+        } else {
+            self.setGathering(Gathering())
         }
+    }
+    
+    func setGathering(_ gathering: Gathering) {
         
         // set fields
-        nameTextField.text = thisGathering?.title
-        if let date = thisGathering?.start {
+        nameTextField.text = gathering.title
+        if let date = gathering.start {
             startDatePicker.date = date
         }
-        if let date = thisGathering?.end {
+        if let date = gathering.end {
             endDatePicker.date = date
         }
-        if let isOn = thisGathering?.assignHosts {
-            assignHostsSwitch.isOn = isOn
-        }
-        if let isOn = thisGathering?.assignRandomly {
-            assignRandomlySwitch.isOn = isOn
-        }
+        assignHostsSwitch.isOn = gathering.assignHosts
+        assignRandomlySwitch.isOn = gathering.assignRandomly
         
         // elaborate way of selecting proper row in picker
         // TODO improve this
-        if let voice = thisGathering?.doorbell.voice.colloquialIdentifier {
-            var row = 0
-            var found = false
-            for v in pickerDataSourceAndDelegate.voicePickerData {
-                if v == voice {
-                    found = true
-                    break
-                }
-                row = row + 1
+        let voice = gathering.doorbell.voice.colloquialIdentifier
+        var row = 0
+        var found = false
+        for v in pickerDataSourceAndDelegate.voicePickerData {
+            if v == voice {
+                found = true
+                break
             }
-            if found {
-                let component = 0
-                voicePicker.selectRow(row, inComponent: component, animated: false)
+            row = row + 1
+        }
+        if found {
+            let component = 0
+            voicePicker.selectRow(row, inComponent: component, animated: false)
+        }
+    }
+    
+    func getGathering() -> Gathering {
+        let title = self.nameTextField.text
+        let detail = Gathering.DEFAULT_DETAIL // TODO
+        let startDate = self.startDatePicker.date
+        let endDate = self.endDatePicker.date
+        let assignRandomly = self.assignRandomlySwitch.isOn
+        let assignHosts = self.assignHostsSwitch.isOn
+        
+        // get item from voice picker
+        let voicePicker = self.voicePicker
+        let component = 0 // implementation detail
+        let delegate = voicePicker!.delegate
+        let row = voicePicker!.selectedRow(inComponent: component)
+        let voiceIdentifier = delegate?.pickerView!(voicePicker!, titleForRow: row, forComponent: component)
+        
+        // TODO expand
+        var doorbell: Doorbell = Doorbell()
+        
+        if let voiceIdentifier = voiceIdentifier {
+            if let identifier = AVSpeechSynthesisVoice.getIdentifier(fromColloquialIdentifier: voiceIdentifier) {
+                doorbell = Doorbell(voiceIdentifier: identifier)
             }
         }
+        
+        let gathering = Gathering(title: title, detail: detail, startDate: startDate, endDate: endDate, assignHosts: assignHosts, assignRandomly: assignRandomly, doorbell: doorbell)
+        
+        if let uid = self.gatheringKey {
+            gathering.uid = uid
+        }
+        
+        return gathering
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // setup
+        self.dm = DatabaseManager()
         setupVoicePicker() // must come first
         initGathering()
         
@@ -155,25 +197,25 @@ class EditGatheringViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        updateGathering()
-        
+        if let segueIdentifier = segue.identifier {
+            if segueIdentifier == "save_gathering" {
+                updateGathering()
+            }
+        }
     }
     
     func updateGathering() {
-        self.thisGathering?.title = self.nameTextField.text
-        self.thisGathering?.start = self.startDatePicker.date
-        self.thisGathering?.end = self.endDatePicker.date
-        self.thisGathering?.assignRandomly = self.assignRandomlySwitch.isOn
-        self.thisGathering?.assignHosts = self.assignHostsSwitch.isOn
-
-        // get item from voice picker
-        let voicePicker = self.voicePicker
-        let component = 0 // implementation detail
-        let delegate = voicePicker!.delegate
-        let row = voicePicker!.selectedRow(inComponent: component)
-        let voiceIdentifier = delegate?.pickerView!(voicePicker!, titleForRow: row, forComponent: component)
-        let voice = AVSpeechSynthesisVoice.fromColloquialIdentifier(identifier: voiceIdentifier!)
-        self.thisGathering?.doorbell.voice = voice!
+        // if key is not null, update the database
+        // else, if "save", write new gathering
+        let gathering = self.getGathering()
+        if let key = self.gatheringKey {
+            // TODO assert keys are equal
+            self.dm?.updateGathering(gathering)
+        } else {
+            self.dm?.writeGathering(gathering)
+        }
+        
+        self.gatheringKey = nil
     }
 
 }
