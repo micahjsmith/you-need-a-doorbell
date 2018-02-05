@@ -46,6 +46,12 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - PhoneNumberKit (2.1.0):
+    - PhoneNumberKit/PhoneNumberKitCore (= 2.1.0)
+    - PhoneNumberKit/UIKit (= 2.1.0)
+  - PhoneNumberKit/PhoneNumberKitCore (2.1.0)
+  - PhoneNumberKit/UIKit (2.1.0):
+    - PhoneNumberKit/PhoneNumberKitCore
   - SwiftDate (4.5.1)
   - SwiftyJSON (4.0.0)
 
@@ -55,6 +61,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - FirebaseUI/Database (~> 4.0)
+  - PhoneNumberKit (~> 2.1)
   - SwiftDate (~> 4.0)
   - SwiftyJSON
 
@@ -70,9 +77,10 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 5bb1eae636127de695590f50e7d248483eb891e6
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  PhoneNumberKit: 62003f40ff75315fd3738286558bc365365ac222
   SwiftDate: 7b56d42a221f582047287deb256b23fc5ed49a60
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: d7451b6fd5a5dcd788b0e8a0c671f4ddb1da94f1
+PODFILE CHECKSUM: d3ed095154df606ffb9cd726db09fee7c33d2075
 
 COCOAPODS: 1.4.0
