@@ -16,6 +16,7 @@
 		E12E5457201FAFB7002BC56F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E12E5455201FAFB7002BC56F /* Main.storyboard */; };
 		E12E5459201FAFB7002BC56F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E12E5458201FAFB7002BC56F /* Assets.xcassets */; };
 		E16BDA7B202944AB0050A376 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16BDA7A202944AB0050A376 /* Extensions.swift */; };
+		E16BDA80202962B30050A376 /* CustomTabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16BDA7F202962B30050A376 /* CustomTabBarItem.swift */; };
 		E1DCD537202673F500D53235 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DCD536202673F500D53235 /* LogInViewController.swift */; };
 		E1DCD53C2026C1B600D53235 /* DatabaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DCD53B2026C1B600D53235 /* DatabaseUtils.swift */; };
 		E1FE9B14201FBCEB0034A1C9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1FE9B13201FBCEB0034A1C9 /* GoogleService-Info.plist */; };
@@ -35,7 +36,7 @@
 		E12E5458201FAFB7002BC56F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E12E545D201FAFB7002BC56F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E16BDA7A202944AB0050A376 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		E16BDA7C202951090050A376 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		E16BDA7F202962B30050A376 /* CustomTabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarItem.swift; sourceTree = "<group>"; };
 		E1C5B4943F35D340B248B66F /* Pods-YouNeedADoorbell.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouNeedADoorbell.release.xcconfig"; path = "Pods/Target Support Files/Pods-YouNeedADoorbell/Pods-YouNeedADoorbell.release.xcconfig"; sourceTree = "<group>"; };
 		E1DCD536202673F500D53235 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		E1DCD53B2026C1B600D53235 /* DatabaseUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseUtils.swift; sourceTree = "<group>"; };
@@ -67,7 +68,6 @@
 		E12E5443201FAFB6002BC56F = {
 			isa = PBXGroup;
 			children = (
-				E16BDA7C202951090050A376 /* MyPlayground.playground */,
 				FEFAC294553B436A0700EAE7 /* Frameworks */,
 				8F4049E9FEC1836C138DF9B9 /* Pods */,
 				E12E544D201FAFB7002BC56F /* Products */,
@@ -106,6 +106,7 @@
 				E1DCD53B2026C1B600D53235 /* DatabaseUtils.swift */,
 				E16BDA7A202944AB0050A376 /* Extensions.swift */,
 				E12E544F201FAFB7002BC56F /* AppDelegate.swift */,
+				E16BDA7F202962B30050A376 /* CustomTabBarItem.swift */,
 				E12E5458201FAFB7002BC56F /* Assets.xcassets */,
 			);
 			path = "Supporting Files";
@@ -265,6 +266,7 @@
 				E1DCD537202673F500D53235 /* LogInViewController.swift in Sources */,
 				E11F283D202105F900997F2E /* GatheringDetailViewController.swift in Sources */,
 				E12E5454201FAFB7002BC56F /* DoorbellViewController.swift in Sources */,
+				E16BDA80202962B30050A376 /* CustomTabBarItem.swift in Sources */,
 				E16BDA7B202944AB0050A376 /* Extensions.swift in Sources */,
 				E12E5450201FAFB7002BC56F /* AppDelegate.swift in Sources */,
 				E1DCD53C2026C1B600D53235 /* DatabaseUtils.swift in Sources */,
