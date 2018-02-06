@@ -217,7 +217,7 @@ class GatheringDetailViewController: UITableViewController {
         // if key is not null, update the database
         // else, if "save", write new gathering
         let gathering = self.getGathering()
-        if let key = self.gatheringKey {
+        if self.gatheringKey != nil {
             // TODO assert keys are equal
             self.dm?.updateGathering(gathering)
         } else {

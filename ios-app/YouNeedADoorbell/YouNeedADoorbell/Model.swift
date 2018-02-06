@@ -181,3 +181,13 @@ class Doorbell {
         synthesizer.speak(utterance)
     }
 }
+
+class Guest {
+    var salutation: String?
+    var contact: String?
+    
+    public init(salutation: String?, contact: String?) {
+        self.salutation = salutation
+        self.contact = contact
+    }
+}
