@@ -31,16 +31,37 @@ exports.replyToSms = functions.https.onRequest((request, response) => {
     return;
   }
 
-  // Prepare a response to the SMS message
-  const messagingResponse = new MessagingResponse();
+  // Add the sender to the database
+  let gatheringsRef = admin.database().ref('gatherings')
+  let query = gatheringsRef.orderByChild('contact').equalTo(request.body['To'])
+  query.once('value').then((snapshot) => {
+    console.log(snapshot.val());
+    // TODO add validation that the event is happening right now
+    for (var key in snapshot.val()) {
+      gatheringsRef.child(key).child('arrivedGuests').push(request.body);
+      console.log('Adding guest to ' + key + ': ' + request.body['From'] + ' (' + request.body['Body'] + ').');
+    }
 
-  // Add text to the response
-  messagingResponse.message('Hello from Google Cloud Functions! You sent a message to ' + request.body['To'] + ' from ' + request.body['From']);
+    // Respond to the sender
+    const messagingResponse = new MessagingResponse();
+    messagingResponse.message('Thanks for ringing! Someone will come to open the door shortly.');
+    response
+      .status(200)
+      .type('text/xml')
+      .end(messagingResponse.toString());
 
-  // Send the response
-  response
-    .status(200)
-    .type('text/xml')
-    .end(messagingResponse.toString());
-  return;
+    return;
+  }).catch((error) => {
+    console.error(error);
+
+    // Respond to the sender
+    const messagingResponse = new MessagingResponse();
+    messagingResponse.message('There was an error ringing the doorbell. Please try again, or contact the host directly.');
+    response
+      .status(200)
+      .type('text/xml')
+      .end(messagingResponse.toString());
+
+    return;
+  });
 });
