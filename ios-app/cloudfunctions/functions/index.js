@@ -35,11 +35,9 @@ exports.replyToSms = functions.https.onRequest((request, response) => {
   let gatheringsRef = admin.database().ref('gatherings')
   let query = gatheringsRef.orderByChild('contact').equalTo(request.body['To'])
   query.once('value').then((snapshot) => {
-    console.log(snapshot.val());
     // TODO add validation that the event is happening right now
     for (var key in snapshot.val()) {
       gatheringsRef.child(key).child('arrivedGuests').push(request.body);
-      console.log('Adding guest to ' + key + ': ' + request.body['From'] + ' (' + request.body['Body'] + ').');
     }
 
     // Respond to the sender
@@ -49,7 +47,6 @@ exports.replyToSms = functions.https.onRequest((request, response) => {
       .status(200)
       .type('text/xml')
       .end(messagingResponse.toString());
-
     return;
   }).catch((error) => {
     console.error(error);
