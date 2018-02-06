@@ -46,7 +46,7 @@ class Gathering {
         get {
             return [
                 "title": self.title!,
-                "contact": self.contact!,
+                "contact": self.contact ?? "",
                 "startDate": self.start!.string(format: .iso8601Auto),
                 "endDate": self.end!.string(format: .iso8601Auto),
                 "assignHosts": self.assignHosts,
@@ -98,19 +98,7 @@ class Gathering {
         
         // TODO clean up
         if let contact = contact {
-            self.contact = contact
-        } else {
-            self.contact = Gathering.DEFAULT_CONTACT
-        }
-        do {
-            let phoneNumberKit = PhoneNumberKit()
-            let phoneNumber = try phoneNumberKit.parse(self.contact!)
-            self.contact = phoneNumberKit.format(phoneNumber, toType: .national)
-        }
-        catch {
-            print("Generic parser error")
-            print(error)
-            print(self.contact!)
+            self.contact = PhoneNumberKit.simpleFormat(contact)
         }
         
         self.start = startDate
@@ -191,42 +179,5 @@ class Doorbell {
         let utterance = AVSpeechUtterance(string: string)
         utterance.voice = self.voice
         synthesizer.speak(utterance)
-    }
-}
-
-extension AVSpeechSynthesisVoice {
-    var colloquialIdentifier: String {
-        get {
-            return "\(self.name) (\(self.language))"
-        }
-    }
-    
-    static func getIdentifier(fromColloquialIdentifier colloquialIdentifier: String) -> String? {
-        return AVSpeechSynthesisVoice.fromColloquialIdentifier(identifier: colloquialIdentifier)?.identifier
-    }
-    
-    static func fromColloquialIdentifier(identifier: String) -> AVSpeechSynthesisVoice? {
-        // elaborate way to do string pattern matching :(
-        guard let firstLeftParenthesisIndex = identifier.index(of: "(") else {
-            // error
-            print("error: couldn't parse colloquial identifier for '\(identifier)'")
-            return nil
-        }
-        let endOfNameIndex = identifier.index(before: firstLeftParenthesisIndex)
-        let beginningOfLanguageIndex = identifier.index(after: firstLeftParenthesisIndex)
-        let endOfLanguageEnd = identifier.index(before: identifier.endIndex)
-        let name = identifier[..<endOfNameIndex]
-        let language = identifier[beginningOfLanguageIndex..<endOfLanguageEnd]
-
-        // elaborate way to find matches in array :(
-        for voice in AVSpeechSynthesisVoice.speechVoices() {
-            if voice.name == name && voice.language == language {
-                return voice
-            }
-        }
-        
-        // error
-        print("error: couldn't find voice for name '\(name)' and language '\(language)'")
-        return nil
     }
 }

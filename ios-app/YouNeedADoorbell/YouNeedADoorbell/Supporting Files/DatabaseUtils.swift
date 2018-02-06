@@ -23,20 +23,24 @@ class DatabaseManager {
     }
     
     public func readGathering(withKey key: String, completion: @escaping (Gathering?) -> ()) {
-        ref.child("/users/\(getUserUid())/gatherings/\(key)").observeSingleEvent(of: .value) { (snapshot) in
+        ref.child("/gatherings/\(key)").observeSingleEvent(of: .value) { (snapshot) in
             let gathering = Gathering(snapshot: snapshot)
             completion(gathering)
         }
     }
     
     public func writeGathering(_ gathering: Gathering) {
-        // add gatherings to
-        // - users/gatherings/id
-        
-        let key = ref.child("gatherings").childByAutoId().key
+        self.writeGathering(gathering, forUser: getUserUid())
+    }
+    
+    public func writeGathering(_ gathering: Gathering, forUser userId: String) {
+        let key = ref.child("/gatherings").childByAutoId().key
+        var data = gathering.asDict
+        data["userId"] = userId
         let updates = [
-            "/users/\(getUserUid())/gatherings/\(key)": gathering.asDict,
-        ] as [String : Any]
+            "/gatherings/\(key)": data,
+            "/users/\(userId)/gatherings/\(key)": true,
+            ] as [String : Any]
         ref.updateChildValues(updates) { (error, _) in
             if let error = error {
                 print("error adding data")
@@ -47,7 +51,9 @@ class DatabaseManager {
     
     public func updateGathering(_ gathering: Gathering) {
         if let key = gathering.uid {
-            ref.child("/users/\(getUserUid())/gatherings/\(key)").setValue(gathering.asDict)
+            var data = gathering.asDict
+            data["userId"] = getUserUid()
+            ref.child("/gatherings/\(key)").setValue(data)
         } else {
             print("error: wasn't able to update gathering")
         }
@@ -57,6 +63,7 @@ class DatabaseManager {
         if let key = gathering.uid {
             let updates = [
                 "/users/\(getUserUid())/gatherings/\(key)": NSNull(),
+                "/gatherings/\(key)": NSNull(),
             ] as [String : Any]
             ref.updateChildValues(updates)
         }
@@ -94,6 +101,14 @@ class SampleDataManager : DatabaseManager {
         for gathering in [gathering1, gathering2] {
             self.writeGathering(gathering)
         }
+        
+        // create third sample gathering, for a different user
+        let title3 = "Secret party"
+        let contact3 = "1238066589"
+        let start3 = start + 77.hours
+        let end3 = start3 + 2.hours
+        let gathering3 = Gathering(title: title3, contact: contact3, startDate: start3.absoluteDate, endDate: end3.absoluteDate)
+        self.writeGathering(gathering3, forUser: "fakeUserId")
         
         return
     }

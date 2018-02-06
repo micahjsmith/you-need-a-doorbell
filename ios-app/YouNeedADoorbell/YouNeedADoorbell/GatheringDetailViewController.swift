@@ -125,7 +125,7 @@ class GatheringDetailViewController: UITableViewController {
         self.dm = DatabaseManager()
         setupVoicePicker() // must come first
         initGathering()
-        
+                
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

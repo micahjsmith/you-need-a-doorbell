@@ -12,6 +12,7 @@ import AVFoundation
 import FirebaseAuth
 import FirebaseDatabase
 import FirebaseDatabaseUI
+import PhoneNumberKit
 
 class GatheringsTableViewController: UITableViewController {
     
@@ -21,14 +22,11 @@ class GatheringsTableViewController: UITableViewController {
     // table
     var dataSource: FUITableViewDataSource?
     
-    // helpers
-    public func getUid() -> String {
-        return (Auth.auth().currentUser?.uid)!
-    }
-    
     public func getQuery() -> DatabaseQuery {
-        let query: DatabaseQuery = self.ref.child("users/\(getUid())/gatherings").queryOrdered(byChild: "startDate")
-        return query
+        // TODO reverse order
+        return self.ref.child("/gatherings")
+            .queryOrdered(byChild: "userId")
+            .queryEqual(toValue: dm.getUserUid())
     }
     
     override func viewDidLoad() {
@@ -44,7 +42,9 @@ class GatheringsTableViewController: UITableViewController {
             /* populate cell */
             guard let gathering = Gathering(snapshot: snapshot) else { return cell }
             cell.titleLabel?.text = gathering.title
-            cell.contactLabel?.text = gathering.contact
+            if let tmp = gathering.contact {
+                cell.contactLabel?.text = PhoneNumberKit.simpleFormat(tmp)
+            }
             cell.occursWhenLabel?.text = gathering.occursWhen
             return cell
         }
